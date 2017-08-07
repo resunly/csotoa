@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.revers.mapper.ICsotReversMainMapper">
+    <select id="getCsotReversMainById" resultType="com.csot.csotoa.revers.bean.CsotReversMain">
+         select m.fd_id fdId,m.doc_creator_id docCreatorId,t.fd_name docCreatorName,m.doc_subject docSubject,
+         m.extend_data_xml xml,doc_status docStatus from csot_revers_main m, sys_org_element t
+         where m.fd_id=#{fdId} and m.fd_template_id =#{tempId} and m.doc_creator_id = t.fd_id
+    </select>
+
+    <select id="getAttrFiles" resultType="com.csot.csotoa.revers.bean.AttrFile">
+        select fd_file_id fileId,fd_file_name fileName from sys_att_main where  fd_model_id = #{fdId}
+    </select>
+
+    <select id="getReversDetails" resultType="com.csot.csotoa.revers.bean.CsotReversDetail">
+        select fd_id fdId, fd_rsnum fdRsnum, fd_rspos fdRspos, fd_matnr fdMatnr, fd_maktx fdMaktx,
+        fd_meins fdMeins, fd_charg fdCharg, fd_lgort fdLgort, fd_bdmng fdBdmng, fd_enmng fdEnmng,
+        fd_tulgo fdTulgo, fd_remark fdRemark, fd_main_id fdMainId
+        from csot_revers_detail where fd_main_id = #{fdMainId} order by fd_id
+    </select>
+</mapper>

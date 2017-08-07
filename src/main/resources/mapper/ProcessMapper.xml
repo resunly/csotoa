@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.process.mapper.IProcessMapper">
+    <select id="getCurrentNode" resultType="java.lang.String">
+        select fd_fact_node_id from lbpm_node where fd_process_id = #{processId}
+        and fd_id in (select fd_node_id from lbpm_workitem where fd_process_id = #{processId}
+        and (fd_expected_id = #{loginId} or fd_expected_id in
+        (select fd_postid from sys_org_post_person where fd_personid = #{loginId})))
+    </select>
+    <select id="getFdContent" resultType="java.lang.Object">
+        select fd_content from lbpm_node_definition where fd_process_id =
+        (select fd_template_id from lbpm_process where fd_id = #{processId})
+        and fd_fact_id = #{fdFactId}
+    </select>
+
+    <select id="getOperationList" resultType="com.csot.csotoa.process.bean.LbpmProcess">
+      select fd_oper_name operName,fd_oper_type operType,fd_order fdOrder from lbpm_operations where
+      fd_operator_id = #{fdOperatorId} and fd_handler_type='handler' order by fd_order
+    </select>
+
+    <select id="getRejectNodes" resultType="com.csot.csotoa.process.bean.RejectNode">
+      select distinct fd_fact_node_id nodeId,fd_fact_node_name nodeName
+      from lbpm_audit_note where fd_process_id = #{processId} and fd_workitem_id is not null
+      and fd_action_key is not null and fd_action_key != 'handler_refuse'
+    </select>
+
+    <select id="getWorkItem" resultType="com.csot.csotoa.process.bean.WorkItem">
+      select fd_id fdId,fd_activity_type fdActivityType,fd_status fdStatus,fd_start_date fdStartDate,
+      fd_is_disinlist fdIsDisinlist,fd_hierarchy_id fdHierarchyId,fd_parameter fdParameter,
+      fd_parent_id fdParentId,fd_node_id fdNodeId,fd_process_id fdProcessId,fd_handler_id fdHandlerId,
+      fd_expected_id fdExpectedId from lbpm_workitem where fd_process_id = #{processId}
+      <if test="expectedId != null and expectedId != ''">
+          and (fd_expected_id = #{expectedId} or fd_expected_id in
+          (select fd_postid from sys_org_post_person where fd_personid = #{expectedId}))
+      </if>
+      <if test="fdParentId != null and fdParentId != ''">
+         and fd_parent_id = #{fdParentId}
+      </if>
+      <if test="fdActivityType != null and fdActivityType != ''">
+         and fd_activity_type = #{fdActivityType}
+      </if>
+      <if test="fdId != null and fdId != ''">
+         and fd_id = #{fdId}
+      </if>
+    </select>
+
+    <select id="getProxyId" resultType="java.lang.String">
+        select fd_proxy_id from lbpm_workingproxy where fdprocess = #{processId}
+        and fd_byproxy_id = #{byProxyId}
+    </select>
+
+    <select id="getAuthorizer" resultType="java.lang.String">
+        select fd_expected_id from lbpm_workitem where fd_process_id = #{processId}
+        and (fd_expected_id in(select fd_authorizer from lbpm_authorize where
+        fd_authorized_person = #{loginId} and fd_end_time >= sysdate)
+        or fd_expected_id in(select fd_postid from sys_org_post_person where
+        fd_personid in(select fd_authorizer from lbpm_authorize where
+        fd_authorized_person = #{loginId} and fd_end_time >= sysdate)))
+    </select>
+</mapper>

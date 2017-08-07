@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.dccmodapply.mapper.IDccModApplyMapper">
+    <select id="getDccModApply" resultType="com.csot.csotoa.dccmodapply.bean.DccModApply">
+         select fd_id fdId,fd_applicant_number fdApplicantNumber,fd_applicant_tel fdApplicantTel,
+         fd_flow_type fdFlowType,doc_subject docSubject,doc_number docNumber,fd_version fdVersion,
+         fd_apply_number fdApplyNumber,fd_status fdStatus,doc_status docStatus,fd_suit_dept_type fdSuitDeptType,
+         to_char(doc_apply_reason) docApplyReason,doc_apply_date docApplyDate,fd_memo fdMemo,
+         fd_creator_number fdCreatorNumber,fd_creator_tel fdCreatorTel,doc_type docType,fd_secret_level fdSecretLevel,
+         csot_dccmod_apply_template_id csotDccmodApplyTemplateId,doc_applicant docApplicant,
+         doc_applicant_dept docApplicantDept,doc_creator docCreator,fd_create_dept fdCreateDept,
+         auth_att_nodownload authAttNodownload,auth_att_nocopy authAttNocopy,auth_att_noprint authAttNoprint,
+         auth_reader_flag authReaderFlag,fd_system_type fdSystemType,fd_reference_file fdReferenceFile
+         from csot_dccmod_apply where fd_id = #{fdId}
+    </select>
+
+    <select id="getDccModApplyBorrow" resultType="com.csot.csotoa.dccmodapply.bean.CsotDccmodApplyBorrow">
+        select fd_apply_id fdApplyId,fd_is_return fdIsReturn,fd_archive_type fdArchiveType,fd_borrow_type fdBorrowType,
+        fd_borrow_number fdBorrowNumber,fd_is_returned fdIsReturned,fd_return_date fdReturnDate,
+        fd_not_return_reason fdNotReturnReason,dcc_doc_id dccDocId,auth_reader_flag authReaderFlag
+        from csot_dccmod_apply_borrow where fd_apply_id = #{fdId}
+    </select>
+
+    <select id="getDccModBorrowList" resultType="com.csot.csotoa.dccmodapply.bean.CsotDccmodBorrowList">
+        select fd_id fdId,fd_number fdNumber,fd_remark fdRemark,fd_borrow_id fdBorrowId,fd_doc_id fdDocId
+        from CSOT_DCCMOD_BORROW_LIST where fd_borrow_id= #{fdId}
+    </select>
+
+    <select id="getDccModDcoMain" resultType="com.csot.csotoa.dccmodapply.bean.CsotDccmodDocumentMain">
+        select fd_id fdId,fd_signed fdSigned,fd_notify_type fdNotifyType,fd_contract_type fdContractType,paper_count paperCount,
+        fd_copy_count fdCopyCount,fd_flow_type fdFlowType,fd_archive_type fdArchiveType,fd_name fdName,fd_status fdStatus,
+        fd_suit_dept_type fdSuitDeptType,doc_alter_time docAlterTime,doc_create_time docCreateTime,old_doc_number oldDocNumber,
+        doc_number docNumber,doc_type docType,fd_secret_level fdSecretLevel,fd_download_count fdDownloadCount,
+        doc_publish_time docPublishTime,fd_storage_life fdStorageLife,fd_storage_place fdStoragePlace,
+        fd_is_newversion fdIsNewversion,fiter_flag fiterFlag,doc_version docVersion,doc_origin_docid docOriginDocid,
+        doc_media_type docMediaType,fd_relation_doc fdRelationDoc,doc_apply_id docApplyId,doc_category docCategory,
+        fd_create_dept fdCreateDept,doc_creator_id docCreatorId,doc_alteror_id docAlterorId,doc_status docStatus,
+        doc_read_count docReadCount,read_logs_separate readLogsSeparate,auth_reader_flag authReaderFlag,
+        auth_editor_flag authEditorFlag,auth_att_nodownload authAttNodownload,auth_att_nocopy authAttNocopy,
+        auth_att_noprint authAttNoprint,fd_reference_file fdReferenceFile,fd_reference_table fdReferenceTable,
+        fd_photocopy_num fdPhotocopyNum from CSOT_DCCMOD_DOCUMENT_MAIN where fd_id = #{fdId}
+    </select>
+
+    <select id="getRereferenceFiles" resultType="com.csot.csotoa.dccmodapply.bean.DccModDocumentMain">
+        select fd_id fdId,doc_number docNumber,fd_name fdName,'参考文件' fileDesc from CSOT_DCCMOD_DOCUMENT_MAIN
+        where fd_id in(select fd_doc_id from csot_dccmod_reference_files where fd_main_id = #{fdId})
+    </select>
+
+    <select id="getRereferenceTables" resultType="com.csot.csotoa.dccmodapply.bean.DccModDocumentMain">
+        select fd_id fdId,doc_number docNumber,fd_name fdName,'参考表单' fileDesc from CSOT_DCCMOD_DOCUMENT_MAIN
+        where fd_id in(select fd_doc_id from csot_dccmod_reference_tables where fd_main_id = #{fdId})
+    </select>
+
+    <select id="getApplyBaseDept" resultType="string">
+        select fd_org_id from csot_dccmod_apply_base_dept where fd_doc_id = #{fdId}
+    </select>
+
+    <select id="getApplyRelDept" resultType="string">
+        select fd_org_id from csot_dccmod_apply_relDept where fd_doc_id = #{fdId}
+    </select>
+
+    <select id="getApplyNewDist" resultType="string">
+        select fd_org_id from csot_dccmod_apply_new_dist  where fd_doc_id = #{fdId}
+    </select>
+
+    <select id="getApplyMainDept" resultType="string">
+        select fd_org_id from CSOT_DCC_MOD_APPLY_NMAINDEPT where fd_doc_id = #{fdId}
+    </select>
+
+    <select id="getApplyRedis" resultType="string">
+        select fd_org_id from csot_dccmod_apply_redis where fd_doc_id = #{fdId}
+    </select>
+
+    <select id="getDocumentList" resultType="com.csot.csotoa.util.bean.AttMain">
+        select fd_id fdId,fd_model_id fdModelId,fd_key fdKey,fd_file_name fdFileName,fd_size fdSize,fd_file_Id fdFileId
+        from sys_att_main  where fd_model_id = #{fdId} and  fd_key = #{fdKey}
+    </select>
+
+    <select id="getDocMediaType" resultType="java.lang.String">
+        select doc_media_type from csot_dccmod_apply_new where fd_apply_id = #{fdId}
+    </select>
+</mapper>

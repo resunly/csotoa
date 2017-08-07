@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.prcategory.mapper.IPrCategoryMapper">
+    <select id="getCsotPrMain" resultType="com.csot.csotoa.prcategory.bean.CsotPrMain">
+        select fd_id fdId,doc_subject docSubject,doc_content docContent,doc_status docStatus,
+        fd_sap_status fdSapStatus,doc_create_time docCreateTime,doc_alter_time docAlterTime,
+        fd_last_modified_time fdLastModifiedTime,doc_category_id docCategoryId,
+        (select fd_name from csot_po_category where fd_id = doc_category_id)docCategoryName,
+        doc_creator_id docCreatorId,extend_data_xml extendDataXml from csot_pr_main
+        where fd_id= #{fdId}
+    </select>
+
+</mapper>

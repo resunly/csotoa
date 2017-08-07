@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.manageborrow.mapper.ICsotManageBorrowMainMapper">
+    <select id="getCostManageBorrowMain" resultType="com.csot.csotoa.manageborrow.bean.CsotManageBorrowMain">
+        select fd_id fdId,fd_sap_message fdSapMessage,fd_sap_status fdSapStatus,acc_mode_id accModeId,doc_subject docSubject,
+        fd_apply_number fdApplyNumber,fd_emp_no fdEmpNo,fd_emp_post fdEmpPost,fd_deptname fdDeptname,fd_emp_dept fdEmpDept,
+        fd_payeeno fdPayeeno,fd_payeename fdPayeename,fd_payeepost fdPayeepost,fd_payeedept fdPayeedept,fd_payeedeptname fdPayeedeptname,
+        fd_paymenttype fdPaymenttype,fd_ledger_id fdLedgerId,fd_bankaccount fdBankaccount,fd_provincename fdProvincename,
+        fd_cityname fdCityname,fd_branchname fdBranchname,fd_bankname fdBankname,fd_traveno fdTraveno,doc_borrow_time docBorrowTime,
+        fd_voucher_state fdVoucherState,fd_borrow_count_money fdBorrowCountMoney,fd_money_capital fdMoneyCapital,fd_att_count fdAttCount,
+        fd_print_state fdPrintState,fd_print_total fdPrintTotal,fd_creator_phoneno fdCreatorPhoneno,doc_alter_time docAlterTime,
+        fd_emp_name fdEmpName,fd_check_money fdCheckMoney,fd_lc_money fdLcMoney,fd_collecting_money fdCollectingMoney,
+        fd_actual_money fdActualMoney,fd_check_descrip fdCheckDescrip,fd_lc_descrip fdLcDescrip,fd_collecting_descrip fdCollectingDescrip,
+        fd_actual_money_capital fdActualMoneyCapital,fd_quits_money_capital fdQuitsMoneyCapital,fd_charge_type fdChargeType,
+        fd_ledger_flag fdLedgerFlag,fd_bank_pay_state fdBankPayState,fd_voucher_number fdVoucherNumber,f_number fNumber,
+        doc_create_time docCreateTime,fd_account_period fdAccountPeriod,fd_bank_money fdBankMoney,fd_bank_money_desc fdBankMoneyDesc,
+        fd_money_io_sum fdMoneyIoSum,fd_cash fdCash,fd_descrip fdDescrip,fd_summary fdSummary,doc_status docStatus,
+        fd_cash_summary fdCashSummary,auth_att_nodownload authAttNodownload,auth_att_nocopy authAttNocopy,auth_att_noprint authAttNoprint,
+        auth_reader_flag authReaderFlag,fd_cash_subject fdCashSubject,fd_bank_subject fdBankSubject,doc_creator_id docCreatorId,
+        doc_category_id docCategoryId,doc_borrow_id docBorrowId,fd_borrow_item_id fdBorrowItemId,doc_alter_id docAlterId,
+        fd_money_io_item_id fdMoneyIoItemId,fd_money_io_item_bank fdMoneyIoItemBank,fd_item_id fdItemId,fd_currency fdCurrency,fd_roe fdRoe,
+        fd_collecting fdCollecting,fd_lc fdLc,fd_check fdCheck,fd_inclusionbudget_id fdInclusionbudgetId,fd_bank_money_item_id fdBankMoneyItemId,
+        fd_person_position_id fdPersonPositionId,doc_publish_time docPublishTime,is_csf isCsf,fd_csf fdCsf,fd_payment_way fdPaymentWay,
+        fd_display_account fdDisplayAccount from km_Costmanage_Borrow_Main where fd_id = #{fdId}
+    </select>
+
+    <select id="getBorrowList" resultType="com.csot.csotoa.manageborrow.bean.CsotManageBorrow">
+        select fd_id fdId,doc_charge_item docChargeItem,fd_descrip fdDescrip,fd_money fdMoney,
+        fd_charge_explain fdChargeExplain,fd_reduce_id fdReduceId,fd_unrepayment fdUnrepayment,
+        fd_order fdOrder,fd_charge_detail_id fdChargeDetailId,fd_budget_item_id fdBudgetItemId,
+        fd_costmanage_borrow_id fdCostmanageBorrowId,fd_expect_repayment_date fdExpectRepaymentDate
+        from KM_costmanage_borrow_list where fd_costmanage_borrow_id = #{fdId}
+    </select>
+
+    <select id="getFdCs" resultType="com.csot.csotoa.manageborrow.bean.CsotDictData">
+        select fd_id fdId,fd_name fdName,fd_order fdOrder,fd_hierarchy_id fdHierarchyId,fd_code fdCode,fd_remark fdRemark,
+        doc_create_time docCreateTime,doc_alter_time docAlterTime,fd_model_name fdModelName,fd_type_id fdTypeId,
+        fd_parent_id fdParentId,doc_creator_id docCreatorId,doc_alteror_id docAlterorId from csot_dict_data
+        where fd_id = #{fdId}
+    </select>
+
+    <select id="getFdledger" resultType="com.csot.csotoa.manageborrow.bean.KmCsotmanageSapBankaccsub">
+        select fd_id fdId,fd_bankname fdBankname,fd_banknumber fdBanknumber,fd_accsubname fdAccsubname,
+        fd_status fdStatus,fd_accsubcode fdAccsubcode,fd_bank_user_name fdBankUserName,fd_pay_type fdPayType,
+        fd_company_code fdCompanyCode from km_costmanage_sap_bankaccsub where fd_id = #{fdId}
+    </select>
+
+</mapper>

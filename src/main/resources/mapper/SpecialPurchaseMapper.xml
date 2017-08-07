@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.specialpurchase.mapper.ISpecialPurchaseMapper">
+    <select id="getSpicialPurchase" resultType="com.csot.csotoa.specialpurchase.bean.SpecialPurchase">
+        select fd_id fdId,doc_subject docSubject,doc_create_time docCreateTime,doc_status docStatus,
+        doc_publish_time docPublishTime,fd_number fdNumber,fd_template fdTemplate,doc_creator_id docCreatorId,
+        doc_applyer_dept docApplyerDept,extend_file_path extendFilePath,extend_data_xml extendDataXml,
+        auth_att_nodownload authAttNodownload,auth_att_nocopy authAttNocopy,auth_att_noprint authAttNoprint,
+        auth_reader_flag authReaderFlag from csot_special_purchase where fd_id= #{fdId}
+    </select>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.7.0_79" class="java.beans.XMLDecoder">
+ <object class="java.util.HashMap">
+  <void method="put">
+   <string>sex</string>
+   <string>1</string>
+  </void>
+  <void method="put">
+   <string>test</string>
+   <string>hank</string>
+  </void>
+  <void method="put">
+   <string>name</string>
+   <string>rest</string>
+  </void>
+ </object>
+</java>

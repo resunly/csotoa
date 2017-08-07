@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.carapplication.mapper.ICsotCarApplicationMapper">
+    <select id="getCsotCarApplication" parameterType="java.lang.String" resultType="com.csot.csotoa.carapplication.bean.CsotCarApplication">
+        select doc_subject docSubject,doc_creator_id docApplicationId,fd_mobile fdMobile,fd_cluster_no fdClusterNo,
+        fd_reason fdReason,fd_out_persons_number fdOutPersonsNumber,fd_way fdWay,fd_other_out_persons fdOtherOutPersons,
+        fd_type fdType,fd_address fdAddress,fd_start_time fdStartTime,fd_back_time fdBackTime,fd_over_time fdOverTime,
+        fd_route fdRoute,doc_create_time docCreateTime ,fd_other_out_persons fdOtherOutPersons,
+        doc_creator_id docCreatorId,doc_dept_id docDeptId
+        from csot_car_application where fd_id = #{fdId}
+    </select>
+
+    <select id="getCarUser" parameterType="java.lang.String" resultType="com.csot.csotoa.util.bean.SysOrgElement">
+         select fd_name fdName from sys_org_element where fd_id in(select fd_main_out_id from csot_car_main_out_person
+          where fd_main_id = #{fdId})
+    </select>
+
+    <select id="getCostCarInfo" parameterType="java.lang.String" resultType="com.csot.csotoa.carapplication.bean.CsotCarInfo">
+        select m.fd_no fdNo,d.fd_name fdName,a.fd_mobileno mobile from
+        (select fd_driver_id,fd_car_id,fd_mobileno from csot_car_receipt_application
+        where fd_application_id = #{fdId})a left join csot_car_driver d on a.fd_driver_id = d.fd_id
+        left join csot_car_main m on a.fd_car_id = m.fd_id
+    </select>
+
+    <select id="getOrgNameById" parameterType="java.lang.String" resultType="java.lang.String">
+        select fd_name from sys_org_element where fd_id = #{fdId}
+    </select>
+</mapper>

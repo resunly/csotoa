@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.dccapply.mapper.IDccApplyMapper">
+    <select id="getDccApplyById" resultType="com.csot.csotoa.dccapply.bean.DccApplyInfo">
+         select a.*,b.fd_apply_id fdApplyId,b.fd_borrow_type fdBorrowType,b.fd_return_date fdReturnDate,docApplyReason,
+         b.fd_doc_id fdDocId,b.fd_not_return_reason fdNotReturnReason,b.fd_borrow_number fdBorrowNumber,
+         b.dcc_doc_id dccDocId,b.fd_is_returned fdIsReturned,b.fd_is_return fdIsReturn,b.fd_archive_type fdArchiveType,
+         b.auth_reader_flag authReaderFlag from (select fd_id fdId,fd_apply_number fdApplyNumber,doc_apply_date docApplyDate,
+         doc_creator docCreator,fd_create_dept fdCreateDept,fd_creator_number fdCreatorNumber,fd_creator_tel fdCreatorTel,
+         doc_applicant docApplicant,doc_applicant_dept docApplicantDept,fd_applicant_number fdApplicantNumber,doc_type docType,
+         fd_applicant_tel fdApplicantTel,fd_secret_level fdSecretLevl,doc_status docStatus,doc_subject docSubject,
+         to_char(doc_apply_reason) docApplyReason,doc_order_date docOrderDate from csot_Dcc_Apply where fd_id = #{fdId} and
+         csot_dcc_apply_template_id = #{tempId})a left join csot_Dcc_Apply_Borrow b on a.fdId=b.fd_apply_id
+    </select>
+
+    <select id="getDccDocumentMain" resultType="com.csot.csotoa.dccapply.bean.DccDocumentMain">
+        select a.*,b.fd_number fdNumber from (select fd_id,fd_name fdName,doc_number docNumber,doc_version docVersion
+        from Csot_Dcc_Document_Main where fd_id= #{docId})a,CSOT_DCC_BORROW_LIST b
+        where  b.fd_doc_id = a.fd_id and b.fd_borrow_id= #{borrowId}
+    </select>
+
+    <select id="getSysOrgElement" resultType="com.csot.csotoa.util.bean.SysOrgElement">
+       select fd_id fdId,fd_name fdName,fd_parentid fdParentid from sys_org_element where fd_id=#{fdId}
+    </select>
+
+    <select id="getDccApplyAllById" resultType="com.csot.csotoa.dccapply.bean.DccApplyInfo">
+        select fd_id fdId,doc_subject docSubject,doc_number docNumber,fd_version fdVersion,fd_apply_number fdApplyNumber,
+        fd_status fdStatus,doc_status docStatus,to_char(doc_apply_reason) docApplyReason,doc_apply_date docApplyDate,fd_memo fdMemo,
+        fd_creator_number fdCreatorNumber,fd_creator_tel fdCreatorTel,fd_secret_level fdSecretLevel,
+        csot_dcc_apply_template_id csotDccApplyTemplateId,doc_creator docCreator,fd_create_dept fdCreateDept,
+        auth_att_nodownload authAttNodownload,auth_att_nocopy authAttNocopy,auth_att_noprint authAttNoprint,
+        auth_reader_flag authReaderFlag,fd_suit_dept_type fdSuitDeptType,doc_type docType,fd_flow_type fdFlowType,
+        doc_applicant docApplicant,fd_reference_file fdReferenceFile,fd_reference_table fdReferenceTable,
+        fd_applicant_number fdApplicantNumber,fd_applicant_tel fdApplicantTel,doc_applicant_dept docApplicantDept,
+        fd_system_type fdSystemType, fd_doc_filescrope fdDocFilescrope,doc_order_date docOrderDate
+        from csot_Dcc_Apply where fd_id = #{fdId} and csot_dcc_apply_template_id = #{tempId}
+    </select>
+
+    <select id="getDccApplyNew" resultType="com.csot.csotoa.dccapply.bean.DccApplyNew">
+        select fd_apply_id fdApplyId,fd_storage_life fdStorageLife,doc_type docType,doc_media_type docMediaType,
+        doc_publish_type docPublishType,fd_flow_type fdFlowType,auth_reader_flag authReaderFlag
+        from csot_dcc_apply_new where fd_apply_id = #{fdId}
+    </select>
+
+    <select id="getRelationDept" resultType="string">
+        select fd_org_id from csot_dcc_apply_base_reDept where fd_doc_id = #{fdId}
+    </select>
+
+    <select id="getDistributeDept" resultType="string">
+       select fd_org_id from csot_dcc_apply_new_distribute where fd_doc_id = #{fdId}
+    </select>
+
+    <select id="getAttMain" resultType="com.csot.csotoa.util.bean.AttMain">
+        select fd_id fdId,fd_model_id fdModelId,fd_key fdKey,fd_file_name fdFileName,fd_size fdSize,fd_file_id fdFileId
+        from sys_att_main where fd_model_id = #{fdId} order by fd_key
+    </select>
+
+    <select id="getReferenceFile" resultType="com.csot.csotoa.dccapply.bean.DccDocumentMain">
+        select fd_id fdId,doc_number docNumber,fd_name fdName,'参考文件' fileDesc from csot_dcc_document_main
+        where fd_id in(select fd_doc_id from csot_dcc_reference_files where fd_main_id = #{fdId})
+    </select>
+
+    <select id="getReferenceTable" resultType="com.csot.csotoa.dccapply.bean.DccDocumentMain">
+        select fd_id fdId,doc_number docNumber,fd_name fdName,'参考表单' fileDesc from csot_dcc_document_main
+        where fd_id in(select fd_doc_id from csot_dcc_reference_tables  where fd_main_id = #{fdId})
+    </select>
+
+    <select id="getDccApplyAllByIdNoTempId" resultType="com.csot.csotoa.dccapply.bean.DccApplyInfo">
+        select fd_id fdId,doc_subject docSubject,doc_number docNumber,fd_version fdVersion,fd_apply_number fdApplyNumber,
+        fd_status fdStatus,doc_status docStatus,doc_apply_reason docApplyReason,doc_apply_date docApplyDate,fd_memo fdMemo,
+        fd_creator_number fdCreatorNumber,fd_creator_tel fdCreatorTel,fd_secret_level fdSecretLevel,
+        csot_dcc_apply_template_id csotDccApplyTemplateId,doc_creator docCreator,fd_create_dept fdCreateDept,
+        auth_att_nodownload authAttNodownload,auth_att_nocopy authAttNocopy,auth_att_noprint authAttNoprint,
+        auth_reader_flag authReaderFlag,fd_suit_dept_type fdSuitDeptType,doc_type docType,fd_flow_type fdFlowType,
+        doc_applicant docApplicant,fd_reference_file fdReferenceFile,fd_reference_table fdReferenceTable,
+        fd_applicant_number fdApplicantNumber,fd_applicant_tel fdApplicantTel,doc_applicant_dept docApplicantDept,
+        fd_system_type fdSystemType, fd_doc_filescrope fdDocFilescrope,doc_order_date docOrderDate
+        from csot_Dcc_Apply where fd_id = #{fdId}
+    </select>
+</mapper>

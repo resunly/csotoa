@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.managedisb.mapper.ICsotManageDisbMapper">
+    <select id="getCostManageDisbMain" resultType="com.csot.csotoa.managedisb.bean.CsotManageDisbMain">
+        select fd_id fdId,fd_empdept_no fdEmpdeptNo,fd_payment_type fdPaymentType,is_inner_item isInnerItem,fd_no fdNo,
+        added_invoice addedInvoice,fd_overplus_budget_money fdOverplusBudgetMoney,fd_budget_code fdBudgetCode,fd_invoice_no fdInvoiceNo,
+        fd_tax fdTax,fd_sap_message fdSapMessage,fd_sap_status fdSapStatus,fd_payaccount_number fdPayaccountNumber,fd_disb_type fdDisbType,
+        fd_creator_phoneno fdCreatorPhoneno,fd_emp_no fdEmpNo,fd_emp_name fdEmpName,fd_emp_dept fdEmpDept,fd_emp_post fdEmpPost,
+        fd_print_state fdPrintState,fd_print_total fdPrintTotal,fd_check_money fdCheckMoney,fd_lc_money fdLcMoney,fd_money_home fdMoneyHome,
+        fd_collecting_money fdCollectingMoney,fd_actual_money fdActualMoney,fd_check_descrip fdCheckDescrip,fd_lc_descrip fdLcDescrip,
+        fd_collecting_descrip fdCollectingDescrip,fd_money_capital fdMoneyCapital,fd_actual_money_capital fdActualMoneyCapital,
+        fd_quits_money_capital fdQuitsMoneyCapital,fd_charge_type fdChargeType,fd_ledger_flag fdLedgerFlag,acc_mode_id accModeId,
+        budget_needed budgetNeeded,doc_subject docSubject,fd_account_period fdAccountPeriod,fd_voucher_number fdVoucherNumber,
+        f_number fNumber,doc_create_time docCreateTime,fd_disb_time fdDisbTime,doc_alter_time docAlterTime,fd_apply_number fdApplyNumber,
+        fd_descrip fdDescrip,fd_count_money fdCountMoney,fd_att_count fdAttCount,fd_voucher_state fdVoucherState,fd_cash_descrip fdCashDescrip,
+        fd_other_descrip fdOtherDescrip,fd_bank_pay_state fdBankPayState,doc_status docStatus,fd_cash fdCash,fd_bank_money fdBankMoney,
+        fd_bank_money_desc fdBankMoneyDesc,auth_att_nodownload authAttNodownload,auth_att_nocopy authAttNocopy,auth_att_noprint authAttNoprint,
+        fd_other_money fdOtherMoney,fd_chong_browd_money fdChongBrowdMoney,fd_chong_browd_desc fdChongBrowdDesc,auth_reader_flag authReaderFlag,
+        fd_personal_account fdPersonalAccount,fd_payee_id fdPayeeId,fd_currency fdCurrency,fd_roe fdRoe,fd_collecting fdCollecting,fd_lc fdLc,
+        fd_check fdCheck,fd_cash_subject fdCashSubject,fd_bank_subject fdBankSubject,doc_creator_id docCreatorId,fd_dept_id fdDeptId,
+        fd_bank_id fdBankId,fd_person_id fdPersonId,fd_real_disb_id fdRealDisbId,fd_disb_id fdDisbId,fd_item_id fdItemId,
+        doc_category_id docCategoryId,fd_other fdOther,doc_alter_id docAlterId,fd_budget_flag fdBudgetFlag,fd_budget_code_air fdBudgetCodeAir,
+        fd_budget_code_train fdBudgetCodeTrain,fd_budget_code_otherf fdBudgetCodeOtherf,fd_budget_code_othere fdBudgetCodeOthere,
+        fd_budget_code_hotel fdBudgetCodeHotel,fd_budget_code_allowance fdBudgetCodeAllowance,fd_budget_money_air fdBudgetMoneyAir,
+        fd_budget_money_train fdBudgetMoneyTrain,fd_budget_money_otherf fdBudgetMoneyOtherf,fd_budget_money_othere fdBudgetMoneyOthere,
+        fd_budget_money_hotel fdBudgetMoneyHotel,fd_budget_money_allowance fdBudgetMoneyAllowance,fd_tax_flag fdTaxFlag,
+        fd_person_position_id fdPersonPositionId,fd_mon_end_status fdMonEndStatus,fd_sap_status_mon_end fdSapStatusMonEnd,
+        fd_sap_message_mon_end fdSapMessageMonEnd,fd_voucher_date fdVoucherDate,doc_publish_time docPublishTime,fd_jason fdJason,
+        fd_is_read fdIsRead,is_csf isCsf,fd_csf fdCsf,fd_is_proa fdIsProa,fd_shoukuanren fdShoukuanren,fd_barcode_status fdBarcodeStatus,
+        fd_payment_way fdPaymentWay,fd_lx_man fdLxMan,fd_xieshenhao fdXieshenhao,project_applicant projectApplicant
+        from km_costmanage_disb_main where fd_id = #{fdId}
+    </select>
+
+    <select id="getPayeeDetail" resultType="com.csot.csotoa.managedisb.bean.CsotManagePayeeDetail">
+        select fd_id fdId,fd_pay_money fdPayMoney,fd_city_name fdCityName,fd_branch_name fdBranchName,
+        fd_province_name fdProvinceName,fd_order fdOrder,fd_emp_no fdEmpNo,fd_emp_name fdEmpName,
+        fd_bank_name fdBankName,fd_bank_account fdBankAccount,fd_supplier_id fdSupplierId,
+        fd_disb_main_id fdDisbMainId,fd_pay_main_id fdPayMainId,fd_display_account fdDisplayAccount,
+        fd_display_name fdDisplayName from km_costmanage_payee_detail where fd_disb_main_id = #{fdId}
+    </select>
+
+    <select id="getCategoryName" resultType="java.lang.String">
+        select fd_name from km_costmanage_disb_category where fd_id = #{fdId}
+    </select>
+
+    <select id="getAccountName" resultType="java.lang.String">
+        select fd_banknumber from km_costmanage_sap_bankaccsub where fd_id = #{fdId}
+    </select>
+
+    <select id="getTravelDisbMainList" resultType="com.csot.csotoa.managedisb.bean.CsotManageTravelDisbMain">
+        select fd_id fdId,fd_order fdOrder,fd_start_date fdStartDate,fd_end_date fdEndDate,fd_departure fdDeparture,
+        fd_destination fdDestination,fd_days fdDays,fd_allowance fdAllowance,fd_hotel_expense fdHotelExpense,
+        fd_air_fare fdAirFare,fd_train_fare fdTrainFare,fd_other_fare fdOtherFare,fd_other_expense fdOtherExpense,
+        fd_money fdMoney,fd_memo fdMemo,fd_charge_detail_id fdChargeDetailId,fd_budget_main_id fdBudgetMainId,
+        fd_money_io_item fdMoneyIoItem,fd_disb_main_id fdDisbMainId,fd_nights fdNights,fd_travel_number fdTravelNumber,
+        fd_hotel_tax fdHotelTax from km_costmanage_travel_disb_main where fd_disb_main_id = #{fdId}
+    </select>
+
+    <select id="getBorrowMainList" resultType="com.csot.csotoa.managedisb.bean.CsotManageBorrowMain">
+        select c.fd_apply_number applyNumber,(select fd_name from sys_org_element where fd_id = c.doc_creator_id)
+        fdName,c.doc_create_time docCreateTime,a.borrow_money borrowMoney,a.fd_unrepayment fdUnrepayment,
+        a.fd_rite_down_money fdRiteDownMoney from(select borrow_money,fd_unrepayment,fd_rite_down_money,
+        fd_borrow_list_id from km_costmanage_disb_main_brrow where fd_disb_borrow_id = #{fdId})a left join
+        km_costmanage_borrow_list b on a.fd_borrow_list_id = b.fd_id left join km_costmanage_borrow_main c
+        on b.fd_costmanage_borrow_id = c.fd_id
+    </select>
+    <select id="getCsotManageDisbList" resultType="com.csot.csotoa.managedisb.bean.CsotManageDisbList">
+        select (select fd_fee_detail from km_costmanage_fee_detail where fd_id =fd_charge_detail_id)fdChargeDetailName,
+        fd_pro_no fdProNo,fd_budget_code fdBudgetCode,fd_cost_center fdCostCenter,(select fd_kostl_name from
+        CSOT_SAP_CENTER_MAIN where fd_id =fd_cost_center)costCenterName,fd_item_id fdItemId,
+        (select fd_name from KM_COSTMANAGE_ITEM_MAIN where fd_id =fd_item_id)fdItemName,fd_start_date fdStartDate,
+        has_bill hasBill,fd_tax fdTax,fd_money fdMoney from km_costmanage_disb_list  where fd_disb_detail_id = #{fdId}
+    </select>
+</mapper>

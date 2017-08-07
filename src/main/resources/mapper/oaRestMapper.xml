@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.oaRest.mapper.IOaRestMapper">
+
+ 	<select id="getUserByEmloyeeNo" parameterType="java.lang.String" resultType="java.util.Map">
+        select t.fd_Id as id,t.fd_Name as name from sys_org_element t where t.fd_no= #{employeeNo}
+    </select>
+
+    <select id="getTempletIdByfdId" parameterType="java.lang.String" resultType="java.lang.String">
+        select fd_template_id as templateId from km_review_main where fd_id = #{fdId}
+    </select>
+
+    <select id="getDateXml" parameterType="java.lang.String" resultType="java.lang.String">
+       select extend_data_xml from ${tableName} where fd_id = #{fdId}
+    </select>
+
+    <select id="updateDateXml" parameterType="java.lang.String" resultType="java.lang.String">
+        update ${tableName} set extend_data_xml=#{dateXml} where fd_id=#{fdId}
+    </select>
+
+    <select id="getModelName" parameterType="java.lang.String" resultType="java.lang.String">
+        select fd_model_name from lbpm_process  where fd_id=#{fdId}
+    </select>
+
+    <select id="getCurrNode" parameterType="java.lang.String" resultType="java.lang.String">
+       select fd_fact_node_id from lbpm_node where fd_process_id=#{fdId}
+    </select>
+
+    <select id="getEditNodes" parameterType="java.lang.String" resultType="java.lang.String">
+        select fd_fact_id from km_mobile_not_edit where fd_template_id in(#{templateId})
+    </select>
+
+    <select id="getTemplateNames" parameterType="java.lang.String" resultType="java.lang.String">
+        select e.fd_template_name from km_mobile_not_edit e where e.fd_template_id in(#{templateId})
+    </select>
+
+    <select id="getTemplateId" resultType="java.lang.String">
+        select fd_template_id tempId from csot_car_application where fd_id = #{fdId}
+        union
+        select (case when csot_dcc_apply_template_id is not null then csot_dcc_apply_template_id
+        else '133a1cbfe760edb4f9a3e9d473284673' end ) tempId from csot_dcc_apply where fd_id = #{fdId}
+        union
+        select (case when csot_dccmod_apply_template_id is not null then csot_dccmod_apply_template_id
+        else '13f8861400552dbe7631eb34dcfa6d65' end) tempId from csot_dccmod_apply where fd_id = #{fdId}
+        union
+        select fd_template tempId from csot_general_main where fd_id = #{fdId}
+        union
+        select fd_template_id tempId from csot_hr_main where fd_id = #{fdId}
+        union
+        select '1365e820e69c1afa471d5cc4008bb723' tempId from cost_monthlyplan_elsemain where fd_id = #{fdId}
+        union
+        select doc_category_id tempId from csot_po_main where fd_id = #{fdId}
+        union
+        select doc_category_id tempId from csot_pr_main where fd_id = #{fdId}
+        union
+        select fd_template_id tempId from csot_revers_main where fd_id = #{fdId}
+        union
+        select fd_template tempId from csot_special_purchase where fd_id = #{fdId}
+        union
+        select fd_template_id tempId from csot_tpm_main where fd_id = #{fdId}
+        union
+        select doc_category_id tempId from km_costmanage_borrow_main where fd_id = #{fdId}
+        union
+        select doc_category_id tempId from km_costmanage_disb_main where fd_id = #{fdId}
+        union
+        select doc_category_id tempId from km_costmanage_hkpay_main where fd_id = #{fdId}
+        union
+        select doc_category_id tempId from km_costmanage_pay_main where fd_id = #{fdId}
+        union
+        select doc_category_id tempId from km_costmanage_tax_main where fd_id = #{fdId}
+    </select>
+
+    <select id="getTemplatePage" parameterType="java.lang.String" resultType="java.lang.String">
+        select fd_display_jsp as displayJsp from SYS_XFORM_TEMPLATE where fd_model_id = #{templateId}
+    </select>
+
+    <!--<select id="getFlowCurrentNode" parameterType="hashmap" resultType="java.lang.String">
+        select fd_fact_node_id as nodeId from lbpm_node where fd_process_id = #{fdId}
+    </select>-->
+    <select id="getFlowCurrentNode" parameterType="hashmap" resultType="hashmap">
+        select b.fd_fact_node_id   as nodeId,
+               b.fd_fact_node_name as nodeName,
+               a.fd_expected_id    as expectedId
+          from lbpm_workitem a, lbpm_node b
+         where a.fd_node_id = b.fd_id
+           and a.fd_process_id = #{fdId}
+           and (a.fd_expected_id = #{userId}
+           or a.fd_expected_id =
+           (select fd_postid from sys_org_post_person where fd_personid =#{userId}))
+    </select>
+
+    <select id="getSignFlowCurrentNode" parameterType="java.lang.String" resultType="hashmap">
+        select distinct b.fd_fact_node_id as nodeId
+        from lbpm_workitem a, lbpm_node b
+        where a.fd_node_id = b.fd_id
+        and a.fd_process_id = #{fdId}
+    </select>
+
+    <select id="getFlowNodeSet" parameterType="java.lang.String" resultType="java.lang.String">
+        select a.fd_content   as fdContent
+          from lbpm_node_definition a
+         where a.fd_process_id =
+               (select fd_template_id
+                  from lbpm_process
+                 where fd_model_id = #{fdId})
+           and a.fd_fact_id =
+               (select b.fd_fact_node_id
+                  from lbpm_node b
+                 where b.fd_process_id = #{fdId})
+    </select>
+
+    <select id="getFllowNodeSetByNode" parameterType="hashmap" resultType="java.lang.String">
+        select a.fd_content as fdContent
+          from lbpm_node_definition a
+         where a.fd_process_id =
+               (select fd_template_id
+                  from lbpm_process
+                 where fd_model_id = #{fdId})
+           and a.fd_fact_id = #{node}
+    </select>
+
+    <select id="getFlowNodeHandel" parameterType="hashmap" resultType="hashmap">
+        select fd_id         as fdId,
+               fd_fact_id    as fdFactId,
+               fd_handler_id as fdHandlerId,
+               fd_index      as fdIndex
+          from lbpm_node_definition_handler
+         where fd_process_id =
+               (select fd_template_id
+                  from lbpm_process
+                 where fd_model_id = #{fdId})
+           and fd_fact_id = #{flowNodeId}
+    </select>
+
+</mapper>

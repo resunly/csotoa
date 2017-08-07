@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.monthplan.mapper.IMonthPlanCategoryMapper">
+    <select id="getMonthPlanMain" resultType="com.csot.csotoa.monthplan.bean.MonthlyPlanElseMain">
+        select fd_id fdId,doc_subject docSubject,doc_status docStatus,doc_create_time docCreateTime,
+        doc_alter_time docAlterTime,fd_last_modified_time fdLastModifiedTime,fd_applyperson_phone fdApplypersonPhone,
+        fd_applyperson_email fdApplypersonEmail,fd_person_mobile fdPersonMobile,fd_total_price fdTotalPrice,
+        fd_dept_code fdDeptCode,doc_creator_id docCreatorId,doc_alteror_id docAlterorId,doc_category_id docCategoryId,
+        fd_applydept_id fdApplydeptId,auth_editor_flag authEditorFlag,auth_reader_flag authReaderFlag
+        from cost_monthlyplan_elsemain where fd_id = #{fdId}
+    </select>
+
+    <select id="getMonthPlanDetail" resultType="com.csot.csotoa.monthplan.bean.MonthlyPlanElseDetail">
+        select fd_id fdId,fd_name fdName, fd_specifications fdSpecifications,fd_unit fdUnit,fd_budget_price fdBudgetPrice,
+        fd_count fdCount,fd_detail fdDetail,fd_budget_code fdBudgetCode,fd_sum fdSum,fd_apply_des fdApplyDes,
+        fd_trade_mark fdTradeMark,fd_main fdMain from csot_monthlyplan_elsedetail where fd_main = #{fdId}
+    </select>
+</mapper>

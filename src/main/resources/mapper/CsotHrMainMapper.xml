@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.hr.mapper.ICsotHrMainMapper">
+    <select id="getCsotHrMain" resultType="com.csot.csotoa.hr.bean.CsotHrMain">
+        select fd_id fdId,doc_subject docSubject,doc_status docStatus,doc_creator_id docCreatorId,
+        (select fd_name from sys_org_element where fd_id = doc_creator_id) docCreatorName,extend_data_xml extendDataXml
+        from csot_Hr_Main where fd_id= #{fdId}
+    </select>
+
+    <select id="getAttrFiles" resultType="com.csot.csotoa.revers.bean.AttrFile">
+        select fd_file_id fileId,fd_file_name fileName from sys_att_main where  fd_model_id = #{fdId}
+    </select>
+</mapper>

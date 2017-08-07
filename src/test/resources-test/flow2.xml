@@ -1,0 +1,95 @@
+<process dayOfNotifyDrafter="0" dayOfNotifyPrivileger="30" fdId="15bfb3195f67fbe0e5deb27404ba41f4"
+         hourOfNotifyDrafter="0" hourOfNotifyPrivileger="0" iconType="2" linesIndex="21" minuteOfNotifyDrafter="0"
+         minuteOfNotifyPrivileger="0" nodesIndex="20" notifyDraftOnFinish="true" notifyOnFinish="false"
+         notifyType="todo;email" orgAttribute="privilegerIds:privilegerNames"
+         orgAttributes="privilegerIds:privilegerNames" privilegerIds="147137d3aef8944d8a4ae7942bd9d268"
+         privilegerNames="葛向阳" recalculateHandler="true" rejectReturn="false">
+    <nodes>
+        <startNode id="N1" name="开始节点" x="360" y="60"/>
+        <draftNode id="N2" name="起草节点" x="360" y="140"/>
+        <autoBranchNode id="N17" name="是否为设备二部" x="360" y="240"/>
+        <sendNode handlerIds="1449036110efc746c2c19274acebe69e;13f6e6f83c38b12f056e4bc4b669c067" handlerNames="李小宁;徐朝"
+                  handlerSelectType="org" id="N18" ignoreOnHandlerEmpty="true" name="抄送节点" optHandlerCalType="2"
+                  optHandlerSelectType="org"
+                  orgAttributes="handlerIds:handlerNames;optHandlerIds:optHandlerNames;otherCanViewCurNodeIds:otherCanViewCurNodeNames"
+                  useOptHandlerOnly="false" x="600" y="240"/>
+        <reviewNode handlerIds="$docCreator$" handlerNames="$申请人$" handlerSelectType="formula" id="N4"
+                    ignoreOnHandlerEmpty="false" mustModifyHandlerNodeIds="N6" name="申请人确认" optHandlerCalType="2"
+                    optHandlerSelectType="org"
+                    orgAttributes="optHandlerIds:optHandlerNames;otherCanViewCurNodeIds:otherCanViewCurNodeNames"
+                    processType="0" recalculateHandler="true" useOptHandlerOnly="false" x="360" y="380"/>
+        <autoBranchNode id="N14" name="设备二部判断" x="360" y="580"/>
+        <reviewNode handlerIds="1331687449e8c10f9a34d794edbb8282" handlerNames="&lt;提交人的直线领导&gt;"
+                    handlerSelectType="org" id="N5" ignoreOnHandlerEmpty="false" name="直线领导审批" optHandlerCalType="2"
+                    optHandlerSelectType="org"
+                    orgAttributes="handlerIds:handlerNames;optHandlerIds:optHandlerNames;otherCanViewCurNodeIds:otherCanViewCurNodeNames"
+                    processType="0" recalculateHandler="true" useOptHandlerOnly="false" x="360" y="680"/>
+        <reviewNode
+
+        <reviewNode handlerIds="$CSOT.根据工号获取人员$($fdEmpNO$)" handlerNames="$CSOT.根据工号获取人员$($研发复审人员工号$)"
+                    handlerSelectType="formula" id="N10" ignoreOnHandlerEmpty="true" name="研发复审" optHandlerCalType="2"
+                    optHandlerSelectType="org"
+                    orgAttributes="optHandlerIds:optHandlerNames;otherCanViewCurNodeIds:otherCanViewCurNodeNames"
+                    processType="0" recalculateHandler="true" useOptHandlerOnly="false" x="360" y="760"/>
+        <autoBranchNode id="N11" name="条件分支" x="360" y="840"/>
+        <reviewNode
+                handlerIds="142c55b6087f0ee7a872f3b44dab6f63;14c53bb4be4744e49a9ba8d4b47872a2;149c53dce183568d611c518466ba573c;14edc26cbf6454f55419e5644348d127;14cbfa5888b5c54fc01012b4a6db125d;14e7527aa0f526ae4c55e1e43729c30c;14f6c58d011723533719fd94b3794033"
+                handlerNames="邓倩;徐辉粉;聂春花;陈微;朱柯如;朱茜茜;王利芳" handlerSelectType="org" id="N12" ignoreOnHandlerEmpty="false"
+                name="电算员确认" optHandlerCalType="2" optHandlerSelectType="org"
+                orgAttributes="handlerIds:handlerNames;optHandlerIds:optHandlerNames;otherCanViewCurNodeIds:otherCanViewCurNodeNames"
+                processType="1" recalculateHandler="true" useOptHandlerOnly="false" x="540" y="880"/>
+        <reviewNode handlerIds="$docCreator$" handlerNames="$申请人$" handlerSelectType="formula" id="N13"
+                    ignoreOnHandlerEmpty="false" name="领料人确认" optHandlerCalType="2" optHandlerSelectType="org"
+                    orgAttributes="optHandlerIds:optHandlerNames;otherCanViewCurNodeIds:otherCanViewCurNodeNames"
+                    processType="0" recalculateHandler="true" useOptHandlerOnly="false" x="540" y="940"/>
+        <sendNode handlerSelectType="org" id="N6" ignoreOnHandlerEmpty="true" name="通知仓储科电算员" optHandlerCalType="2"
+                  optHandlerSelectType="org" useOptHandlerOnly="false" x="360" y="1000"/>
+        <sendNode handlerIds="1560aa5042ed84eace3860549ec861b1" handlerNames="余晓艳" handlerSelectType="org" id="N19"
+                  ignoreOnHandlerEmpty="true" name="抄送节点" optHandlerCalType="2" optHandlerSelectType="org"
+                  orgAttributes="handlerIds:handlerNames;optHandlerIds:optHandlerNames;otherCanViewCurNodeIds:otherCanViewCurNodeNames"
+                  useOptHandlerOnly="false" x="360" y="1100"/>
+        <sendNode handlerIds="$docCreator$" handlerNames="$申请人$" handlerSelectType="formula" id="N20"
+                  ignoreOnHandlerEmpty="true" name="抄送节点" optHandlerCalType="2" optHandlerSelectType="org"
+                  orgAttributes="handlerIds:handlerNames;optHandlerIds:optHandlerNames;otherCanViewCurNodeIds:otherCanViewCurNodeNames"
+                  useOptHandlerOnly="false" x="360" y="1160"/>
+        <endNode id="N3" name="结束节点" x="360" y="1220"/>
+    </nodes>
+    <lines>
+        <line endNodeId="N2" endPosition="1" id="L1" points="360,80;360,120" startNodeId="N1" startPosition="3"/>
+        <line endNodeId="N17" endPosition="1" id="L2" points="360,160;360,200" startNodeId="N2" startPosition="3"/>
+        <line condition="$CSOT.组织架构判断$($docCreator$,&quot;13f16ee85d2676ad2e1653f436483e18&quot;)"
+              disCondition="$CSOT.组织架构判断$($申请人$,&quot;13f16ee85d2676ad2e1653f436483e18&quot;)" endNodeId="N18"
+              endPosition="4" id="L18" name="模组二分厂设备二部" points="420,240;540,240" priority="1" startNodeId="N17"
+              startPosition="2"/>
+        <line condition="!$CSOT.组织架构判断$($docCreator$,&quot;13f16ee85d2676ad2e1653f436483e18&quot;)"
+              disCondition="!$CSOT.组织架构判断$($申请人$,&quot;13f16ee85d2676ad2e1653f436483e18&quot;)" endNodeId="N4"
+              endPosition="1" id="L17" name="否" points="360,280;360,360" priority="0" startNodeId="N17"
+              startPosition="3"/>
+        <line endNodeId="N4" endPosition="2" id="L19" points="600,260;600,380;420,380" startNodeId="N18"
+              startPosition="3"/>
+        <line endNodeId="N14" endPosition="1" id="L3" points="360,400;360,540" startNodeId="N4" startPosition="3"/>
+        <line condition="if($docCreator$.getFdParentsName(&quot;/&quot;).indexOf(&quot;设备二部&quot;)&lt;0){    return true; }else{    return false; }"
+              disCondition="if($申请人$.getFdParentsName(&quot;/&quot;).indexOf(&quot;设备二部&quot;)&lt;0){    return true; }else{    return false; }"
+              endNodeId="N5" endPosition="1" id="L14" name="非设备二部" points="360,620;360,660" priority="0"
+              startNodeId="N14" startPosition="3"/>
+        <line condition="if($docCreator$.getFdParentsName(&quot;/&quot;).indexOf(&quot;设备二部&quot;)&lt;0){    return false; }else{    return true; }"
+              disCondition="if($申请人$.getFdParentsName(&quot;/&quot;).indexOf(&quot;设备二部&quot;)&lt;0){    return false; }else{    return true; }"
+              endNodeId="N16" endPosition="1" id="L15" name="设备二部" points="420,580;520,580;520,660" priority="1"
+              startNodeId="N14" startPosition="2"/>
+        <line endNodeId="N10" endPosition="1" id="L4" points="360,700;360,740" startNodeId="N5" startPosition="3"/>
+        <line endNodeId="N10" endPosition="2" id="L16" points="520,700;520,760;420,760" startNodeId="N16"
+              startPosition="3"/>
+        <line endNodeId="N11" endPosition="1" id="L9" points="360,780;360,800" startNodeId="N10" startPosition="3"/>
+        <line condition="$fd_is_emergency$ .equals(&quot;0&quot;) " disCondition="$是否紧急领料$ .equals(&quot;0&quot;) "
+              endNodeId="N12" endPosition="1" id="L10" name="是" points="420,840;540,840;540,860" priority="0"
+              startNodeId="N11" startPosition="2"/>
+        <line condition="$fd_is_emergency$ .equals(&quot;1&quot;) " disCondition="$是否紧急领料$ .equals(&quot;1&quot;) "
+              endNodeId="N6" endPosition="1" id="L12" name="否" points="360,880;360,980" startNodeId="N11"
+              startPosition="3"/>
+        <line endNodeId="N13" endPosition="1" id="L11" points="540,900;540,920" startNodeId="N12" startPosition="3"/>
+        <line endNodeId="N6" endPosition="1" id="L13" points="540,960;360,980" startNodeId="N13" startPosition="3"/>
+        <line endNodeId="N19" endPosition="1" id="L5" points="360,1020;360,1080" startNodeId="N6" startPosition="3"/>
+        <line endNodeId="N20" endPosition="1" id="L20" points="360,1120;360,1140" startNodeId="N19" startPosition="3"/>
+        <line endNodeId="N3" endPosition="1" id="L21" points="360,1180;360,1200" startNodeId="N20" startPosition="3"/>
+    </lines>
+</process>

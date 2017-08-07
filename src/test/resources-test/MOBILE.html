@@ -1,0 +1,539 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/resource/jsp/common.jsp"%>
+<%@ page import="com.landray.kmss.web.taglib.xform.TagUtils" %>
+
+<xform:right mode_d="view" mode_g="view" mode_N2="edit" def_N2="false">
+    <TABLE id=fd_2fadf474e82644 class=tb_normal align=center label="主表" style="width:100%;">
+        <TBODY>
+        <TR style="HEIGHT: 33px">
+            <TD class=td_normal_title style="WIDTH: auto" width=1212 colSpan=4 align=center row="0" column="0,1,2,3">
+                <LABEL style="FONT-SIZE: 18px; TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: bold; COLOR: #0000ff; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fadf48b4c22da' option='content'/>
+                </LABEL>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title style="WIDTH: auto" width=1212 colSpan=4 align=right row="1" column="0,1,2,3">
+                <ui:flowFunctionary fdId='157550b97664b626a54059e4a1f93615'/>
+            </TD>
+        </TR>
+        <TR style="HEIGHT: 32px">
+            <TD class=td_normal_title style="WIDTH: auto" width=1212 colSpan=4 row="2" column="0,1,2,3">
+                <LABEL style="FONT-SIZE: 14px; TEXT-DECORATION: none; WIDTH: auto; FONT-WEIGHT: bold; COLOR: #ff0000; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_3240a330a62740' option='content'/>
+                </LABEL>
+            </TD>
+        </TR>
+        <TR style="HEIGHT: 31px">
+            <TD class=td_normal_title style="WIDTH: 314px" width=262 row="3" column="0">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fadf4b1a9558e' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 516px" width=485 row="3" column="1">
+                <LABEL style="OVERFLOW: visible; WIDTH: 80%; WHITE-SPACE: nowrap; DISPLAY: inline" _required=true>
+                    <xform:address propertyId="extendDataFormInfo.value(fd_emp_name.id)"
+                                   propertyName="extendDataFormInfo.value(fd_emp_name.name)" mulSelect="false"
+                                   orgType="ORG_TYPE_PERSON" subject="${xform:subject('fd_emp_name','label')}"
+                                   title="${xform:subject('fd_emp_name','label')}" style="WIDTH: 100%" required="true"
+                                   onValueChange="function(value, domElement){__xformDispatch.call(this,value,domElement);$(document).trigger($.Event('relation_event_setvalue'),'fd_emp_name');}"
+                                   isLoadDataDict="false"/>
+                </LABEL>
+
+                <c:if test="${param.method != 'view'}">
+                    <script>
+                        function enterGetPersonInfo() {
+                            var value = GetXFormFieldById("fd_emp_name")[0].value;
+                            _setSapHrBaseInfo(value);
+                            return;
+                        }
+                        function personInfoChange(value, domElement) {
+                            var value = GetXFormFieldById("fd_emp_name")[0].value;
+                            if (value == "") {
+                                alert("姓名不能为空！");
+                                return;
+                            }
+                            _setSapHrBaseInfo(value);
+                        }
+                        // 设置基础信息
+                        function _setSapHrBaseInfo(personCode) {
+                            var data = new KMSSData();
+                            data.UseCache = false;
+                            data.AddBeanData("hrBaseInfoService&type=baseInfo&personnelReview=1&fdId=" + personCode);
+                            var rtnVal = data.GetHashMapArray();
+                            if (rtnVal.length > 0) {
+                                GetXFormFieldById("fd_emp_no")[0].value = rtnVal[0]["fd_emp_no"];
+                                GetXFormFieldById("fd_emp_dept")[0].value = rtnVal[0]["fd_emp_dept_path"];
+                            } else {
+                                GetXFormFieldById("fd_emp_no")[0].value = "";
+                                GetXFormFieldById("fd_emp_dept")[0].value = "";
+                                alert("人员信息维护不正确!");
+                            }
+
+                        }
+                        Com_AddEventListener(window, "load", enterGetPersonInfo);
+                        AttachXFormValueChangeEventById("fd_emp_name", personInfoChange);
+                    </script>
+                </c:if>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 168px" width=246 row="3" column="2">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fadf4b2d0d972' option='content'/>
+                </LABEL>
+            </TD>
+            <TD width=220 row="3" column="3">
+
+                <DIV style="WIDTH: 80%; WHITE-SPACE: nowrap; DISPLAY: inline" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_emp_no)" style="WIDTH: 100%" required="false"
+                                 subject="${xform:subject('fd_emp_no','label')}"
+                                 title="${xform:subject('fd_emp_no','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title style="WIDTH: 314px" width=262 row="4" column="0">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fadf4b1de1d06' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 516px" width=485 row="4" column="1">
+
+                <DIV style="WIDTH: 80%; WHITE-SPACE: nowrap; DISPLAY: inline" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_emp_dept)" style="WIDTH: 100%" required="false"
+                                 subject="${xform:subject('fd_emp_dept','label')}"
+                                 title="${xform:subject('fd_emp_dept','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 168px" width=246 row="4" column="2">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fadf4b309fa56' option='content'/>
+                </LABEL>
+            </TD>
+            <TD width=220 row="4" column="3">
+
+                <DIV style="WIDTH: 80%; WHITE-SPACE: nowrap; DISPLAY: inline" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_telephone)" style="WIDTH: 100%" required="true"
+                                 subject="${xform:subject('fd_telephone','label')}"
+                                 title="${xform:subject('fd_telephone','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title style="WIDTH: 314px" width=262 row="5" column="0">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fbda5f7639f8c' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: auto" width=951 colSpan=3 row="5" column="1,2,3">
+
+                <TABLE class=tb_noborder style="WIDTH: 832px; DISPLAY: inline" _required=true>
+                    <xform:radio property="extendDataFormInfo.value(fd_in_area)" alignment="H" required="true"
+                                 subject="${xform:subject('fd_in_area','label')}"
+                                 title="${xform:subject('fd_in_area','label')}" onValueChange="__xformDispatch">
+                        <xform:langDataSource>
+                            <xform:lang id='fd_in_area' option='items'/>
+                        </xform:langDataSource>
+                    </xform:radio>
+                </TABLE>
+
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title style="WIDTH: 314px" width=262 row="6" column="0">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fb922dcd12b8e' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 516px" width=485 row="6" column="1">
+
+                <DIV style="WIDTH: 92%; WHITE-SPACE: nowrap; DISPLAY: inline" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_supplier)" style="WIDTH: 100%" required="true"
+                                 subject="${xform:subject('fd_supplier','label')}"
+                                 title="${xform:subject('fd_supplier','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+            <TD class=td_normal_title vAlign=middle width=246 align=left row="6" column="2">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fd3e5840ab948' option='content'/>
+                </LABEL>
+            </TD>
+            <TD width=220 row="6" column="3">
+
+                <DIV style="WIDTH: 80%; WHITE-SPACE: nowrap; DISPLAY: inline" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_supplier_name)" style="WIDTH: 100%"
+                                 required="true" subject="${xform:subject('fd_supplier_name','label')}"
+                                 title="${xform:subject('fd_supplier_name','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title style="WIDTH: 314px" width=262 row="7" column="0">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fb91e7b35021a' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: auto" width=951 colSpan=3 row="7" column="1,2,3">
+
+                <DIV style="word-wrap:break-word;word-break:break-all;WIDTH: 92%;  ; DISPLAY: inline" _required=true>
+                    <xform:textarea property="extendDataFormInfo.value(fd_reason)" style="HEIGHT: 80px; WIDTH: 100%"
+                                    required="true" subject="${xform:subject('fd_reason','label')}"
+                                    title="${xform:subject('fd_reason','label')}" validators="maxLength(500)"
+                                    onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR style="HEIGHT: 32px">
+            <TD class=td_normal_title style="WIDTH: 314px" width=262 row="8" column="0">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fadf4b21b3a0c' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 516px" width=485 row="8" column="1">
+
+                <DIV style="OVERFLOW: visible; WIDTH: 80%; WHITE-SPACE: nowrap; DISPLAY: inline" _required=true>
+                    <xform:datetime property="extendDataFormInfo.value(fd_date)" style="WIDTH: 100%" required="true"
+                                    subject="${xform:subject('fd_date','label')}"
+                                    title="${xform:subject('fd_date','label')}" onValueChange="__xformDispatch"
+                                    dateTimeType="date" isLoadDataDict="false"/>
+                </DIV>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 168px" width=246 row="8" column="2">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fadf4b365aebe' option='content'/>
+                </LABEL>
+            </TD>
+            <TD width=220 row="8" column="3">
+
+                <DIV style="WIDTH: 80%; WHITE-SPACE: nowrap; DISPLAY: inline" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_computer_type)" style="WIDTH: 100%"
+                                 required="true" subject="${xform:subject('fd_computer_type','label')}"
+                                 title="${xform:subject('fd_computer_type','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title style="WIDTH: 314px" width=262 row="9" column="0">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fadfa2ad91df4' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 516px" width=485 row="9" column="1">
+
+                <DIV style="WIDTH: 80%; WHITE-SPACE: nowrap; DISPLAY: inline" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_computer_no)" style="WIDTH: 100%" required="true"
+                                 subject="${xform:subject('fd_computer_no','label')}"
+                                 title="${xform:subject('fd_computer_no','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+            <TD class=td_normal_title vAlign=middle width=246 align=left row="9" column="2">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fb9105acd55c2' option='content'/>
+                </LABEL>
+            </TD>
+            <TD width=220 row="9" column="3">
+
+                <DIV style="WIDTH: 80%; WHITE-SPACE: nowrap; DISPLAY: inline" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_computer_color)" style="WIDTH: 100%"
+                                 required="true" subject="${xform:subject('fd_computer_color','label')}"
+                                 title="${xform:subject('fd_computer_color','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR style="HEIGHT: 30px">
+            <TD class=td_normal_title style="WIDTH: 314px" width=263 row="10" column="0">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fadf7e207e544' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: auto" width=949 colSpan=3 row="10" column="1,2,3">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fb910d54dacf6' option='content'/>
+                </LABEL>
+
+
+                <DIV style="WIDTH: 156px; DISPLAY: inline" _required=true>
+                    <xform:datetime property="extendDataFormInfo.value(fd_begin_date)" style="WIDTH: 120px"
+                                    required="true" subject="${xform:subject('fd_begin_date','label')}"
+                                    title="${xform:subject('fd_begin_date','label')}" onValueChange="__xformDispatch"
+                                    dateTimeType="date" isLoadDataDict="false"/>
+                </DIV>
+
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fb910fac38bec' option='content'/>
+                </LABEL>
+
+
+                <DIV style="WIDTH: 156px; DISPLAY: inline" _required=true>
+                    <xform:datetime property="extendDataFormInfo.value(fd_close_date)" style="WIDTH: 120px"
+                                    required="true" subject="${xform:subject('fd_close_date','label')}"
+                                    title="${xform:subject('fd_close_date','label')}" onValueChange="__xformDispatch"
+                                    dateTimeType="date" isLoadDataDict="false"/>
+                </DIV>
+            </TD>
+        </TR>
+        </TBODY>
+    </TABLE>
+</xform:right>
+
+<xform:right mode_d="view" mode_g="view" mode_N2="hidden" mode_N4="hidden" mode_N5="edit" def_N2="false" def_N4="false"
+             def_N5="false">
+    <TABLE id=fd_2fb911540ee846 class=tb_normal align=center label="主表" style="width:100%;">
+        <TBODY>
+        <TR>
+            <TD class=td_normal_title style="WIDTH: auto" width=1212 colSpan=6 align=center row="0"
+                column="0,1,2,3,4,5">
+                <LABEL style="FONT-SIZE: 15px; TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: bold; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fb9115d33ca20' option='content'/>
+                </LABEL>
+            </TD>
+        </TR>
+        <TR style="HEIGHT: 35px">
+            <TD class=td_normal_title style="WIDTH: 175px" width=180 row="1" column="0">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fb911a7b0aaac' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 214px" width=222 row="1" column="1">
+
+                <DIV style="WIDTH: 126px; DISPLAY: inline" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_mac_address)" style="WIDTH: 120px"
+                                 required="true" subject="${xform:subject('fd_mac_address','label')}"
+                                 title="${xform:subject('fd_mac_address','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 186px" width=190 row="1" column="2">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fb911a83734a6' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 209px" width=218 row="1" column="3">
+
+                <DIV style="WIDTH: 126px; DISPLAY: inline" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_system_name)" style="WIDTH: 120px"
+                                 required="true" subject="${xform:subject('fd_system_name','label')}"
+                                 title="${xform:subject('fd_system_name','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 171px" vAlign=middle width=176 align=left row="1" column="4">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2fb911a8b27a88' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 220px" width=227 row="1" column="5">
+
+                <DIV style="WIDTH: 120px; DISPLAY: inline" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_system_virus)" style="WIDTH: 120px"
+                                 required="false" subject="${xform:subject('fd_system_virus','label')}"
+                                 title="${xform:subject('fd_system_virus','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title style="WIDTH: auto" width=1212 colSpan=6 row="2" column="0,1,2,3,4,5">
+
+                <xform:editShow>
+                    <script>$(function () {
+                        var tb = document.getElementById('TABLE_DL_fd_2fb91209539146');
+                        tb.setAttribute('tbdraggable', 'true');
+                    });</script>
+                </xform:editShow>
+                <xform:viewShow>
+                    <script>$(function () {
+                        var tb = document.getElementById('TABLE_DL_fd_2fb91209539146');
+                        tb.setAttribute('tbdraggable', 'false');
+                        $(tb).css('margin-bottom', '1px');
+                    });</script>
+                </xform:viewShow>
+                <script>Com_IncludeFile('doclist.js');</script>
+                <script>DocList_Info.push('TABLE_DL_fd_2fb91209539146');</script>
+                <xform:editShow>
+                    <c:if test="${empty _xformForm.extendDataFormInfo.formData.fd_2fb91209539146}">
+                        <script>Com_AddEventListener(window, 'load', function () {
+                            setTimeout(function () {
+                                for (var i = 0; i < 1; i++) {
+                                    DocList_AddRow(document.getElementById('TABLE_DL_fd_2fb91209539146'))
+                                }
+                                ;
+                            }, 500);
+                        });</script>
+                    </c:if>
+                </xform:editShow>
+                <script>$(function () {
+                    var tb = document.getElementById('TABLE_DL_fd_2fb91209539146');
+                    var totalWidth = 0;
+                    var tds = $(tb).find("tr[type='titleRow']").children();
+                    var hasPercent = false;
+                    tds.each(function () {
+                        if (!this.width || this.width + ''.indexOf('%') >= 0) {
+                            totalWidth += $(this).width();
+                            hasPercent = true;
+                        } else {
+                            totalWidth += parseInt(this.width);
+                        }
+                    });
+                    var tdWidth = $(tb).parents('td').width();
+                    if (!hasPercent && totalWidth > tdWidth)$(tb).css('width', totalWidth + 'px');
+                    var tb_div = document.getElementById('TABLE_DL_fd_2fb91209539146_div');
+                    $(tb_div).css('width', 'null');
+                });</script>
+                <div id='TABLE_DL_fd_2fb91209539146_div' style='overflow:auto;'>
+                    <TABLE id=TABLE_DL_fd_2fb91209539146 class=tb_normal style="WIDTH: 100%" align=center label="明细表1"
+                           tableName="fd_2fb911540ee846" columnsWidth="10px;50%;50%;10px" showIndex="true" showRow="1"
+                           showStatisticRow="undefined">
+                        <TR class=tr_normal_title type="titleRow">
+                            <xform:editShow>
+                                <td row='1' column='0' align='center' coltype='selectCol' style='width: 15px;'></td>
+                            </xform:editShow>
+                            <TD style="WIDTH: 10px" align=center row="0" column="0" colType="noTitle">
+                                <kmss:message key="page.serial"/>
+                            </TD>
+                            <TD width="50%" align=center row="0" column="1">
+                                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                                    <xform:lang id='fd_2fb9121b9c96c6' option='content'/>
+                                </LABEL>
+                            </TD>
+                            <TD width="50%" align=center row="0" column="2">
+                                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: null;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                                    <xform:lang id='fd_2fb9121c04ed0a' option='content'/>
+                                </LABEL>
+                            </TD>
+
+                            <xform:editShow>
+                                <TD style="width:48px;" align=center row="0" column="3" colType="addTitle"></TD>
+                            </xform:editShow>
+                        </TR>
+                        <%-- 基准行 --%>
+                        <TR KMSS_IsReferRow="1" style="display:none" type="templateRow">
+                            <xform:editShow>
+                                <td row='1' column='0' align='center' coltype='selectCol' style='width: 15px;'><input
+                                        type='checkbox' name='DocList_Selected'/></td>
+                            </xform:editShow>
+                            <TD style="WIDTH: 10px" align=center row="1" column="0" colType="noTemplate"
+                                KMSS_IsRowIndex=1>{1}
+                            </TD>
+                            <TD align=center row="1" column="1">
+
+                                <DIV style="WIDTH: 120px; DISPLAY: inline" canShow="true">
+                                    <xform:xtext
+                                            property="extendDataFormInfo.value(fd_2fb91209539146.!{index}.fd_virus_update)"
+                                            style="WIDTH: 120px" required="false"
+                                            subject="${xform:subject('fd_2fb91209539146.!{index}.fd_virus_update','label')}"
+                                            title="${xform:subject('fd_2fb91209539146.!{index}.fd_virus_update','label')}"
+                                            onValueChange="__xformDispatch"/>
+                                </DIV>
+
+                                <%-- 明细表行ID --%>
+                                <xform:text showStatus="noShow"
+                                            property="extendDataFormInfo.value(fd_2fb91209539146.!{index}.fdId)"/>
+                            </TD>
+                            <TD align=center row="1" column="2">
+
+                                <DIV style="WIDTH: 150px; DISPLAY: inline">
+                                    <xform:datetime
+                                            property="extendDataFormInfo.value(fd_2fb91209539146.!{index}.fd_lose_time)"
+                                            style="WIDTH: 120px" required="false"
+                                            subject="${xform:subject('fd_2fb91209539146.!{index}.fd_lose_time','label')}"
+                                            title="${xform:subject('fd_2fb91209539146.!{index}.fd_lose_time','label')}"
+                                            onValueChange="__xformDispatch" dateTimeType="date" isLoadDataDict="false"/>
+                                </DIV>
+                            </TD>
+
+                            <xform:editShow>
+                                <TD style="WIDTH: 48px" align=center row="1" column="3" colType="delCol">
+                                    <nobr><span style='cursor:pointer' class='optStyle opt_copy_style'
+                                                title='<bean:message bundle="sys-xform" key="xform.button.copy" />'
+                                                onmousedown='DocList_CopyRow();'></span>&nbsp;&nbsp;<span
+                                            style='cursor:pointer' class='optStyle opt_del_style'
+                                            title='<bean:message bundle="sys-xform" key="xform.button.delete" />'
+                                            onmousedown='DocList_DeleteRow_ClearLast();XFom_RestValidationElements();'></span>&nbsp;&nbsp;
+                                    </nobr>
+                                </TD>
+                            </xform:editShow>
+                        </TR>
+                        <%-- 内容行 --%>
+                        <c:forEach items="${_xformForm.extendDataFormInfo.formData.fd_2fb91209539146}"
+                                   var="_xformEachBean" varStatus="vstatus">
+                            <TR KMSS_IsContentRow="1" type="templateRow">
+                                <xform:editShow>
+                                    <td row='1' column='0' align='center' coltype='selectCol' style='width: 15px;'>
+                                        <input type='checkbox' name='DocList_Selected'/></td>
+                                </xform:editShow>
+                                <TD style="WIDTH: 10px" align=center row="1" column="0" colType="noTemplate"
+                                    KMSS_IsRowIndex=1>${vstatus.index + 1}
+                                </TD>
+                                <TD align=center row="1" column="1">
+
+                                    <DIV style="WIDTH: 120px; DISPLAY: inline" canShow="true">
+                                        <xform:xtext
+                                                property="extendDataFormInfo.value(fd_2fb91209539146.${vstatus.index}.fd_virus_update)"
+                                                style="WIDTH: 120px" required="false"
+                                                subject="${xform:subject('fd_2fb91209539146.${vstatus.index}.fd_virus_update','label')}"
+                                                title="${xform:subject('fd_2fb91209539146.${vstatus.index}.fd_virus_update','label')}"
+                                                onValueChange="__xformDispatch"/>
+                                    </DIV>
+
+                                    <%-- 明细表行ID --%>
+                                    <xform:text showStatus="noShow"
+                                                property="extendDataFormInfo.value(fd_2fb91209539146.${vstatus.index}.fdId)"/>
+                                </TD>
+                                <TD align=center row="1" column="2">
+
+                                    <DIV style="WIDTH: 150px; DISPLAY: inline">
+                                        <xform:datetime
+                                                property="extendDataFormInfo.value(fd_2fb91209539146.${vstatus.index}.fd_lose_time)"
+                                                style="WIDTH: 120px" required="false"
+                                                subject="${xform:subject('fd_2fb91209539146.${vstatus.index}.fd_lose_time','label')}"
+                                                title="${xform:subject('fd_2fb91209539146.${vstatus.index}.fd_lose_time','label')}"
+                                                onValueChange="__xformDispatch" dateTimeType="date"
+                                                isLoadDataDict="false"/>
+                                    </DIV>
+                                </TD>
+
+                                <xform:editShow>
+                                    <TD style="WIDTH: 48px" align=center row="1" column="3" colType="delCol">
+                                        <nobr><span style='cursor:pointer' class='optStyle opt_copy_style'
+                                                    title='<bean:message bundle="sys-xform" key="xform.button.copy" />'
+                                                    onmousedown='DocList_CopyRow();'></span>&nbsp;&nbsp;<span
+                                                style='cursor:pointer' class='optStyle opt_del_style'
+                                                title='<bean:message bundle="sys-xform" key="xform.button.delete" />'
+                                                onmousedown='DocList_DeleteRow_ClearLast();XFom_RestValidationElements();'></span>&nbsp;&nbsp;
+                                        </nobr>
+                                    </TD>
+                                </xform:editShow>
+                            </TR>
+                        </c:forEach>
+                        <TR type="statisticRow">
+                            <xform:editShow>
+                                <td row='1' column='0' align='center' coltype='selectCol' style='width: 15px;'></td>
+                            </xform:editShow>
+                            <TD style="WIDTH: 10px" align=center row="2" column="0" colType="noFoot">&nbsp;</TD>
+                            <TD align=center row="2" column="1">&nbsp;</TD>
+                            <TD align=center row="2" column="2">&nbsp;</TD>
+
+                            <xform:editShow>
+                                <TD style="WIDTH: 48px" align=center row="2" column="3" colType="emptyCell">&nbsp;</TD>
+                            </xform:editShow>
+                        </TR>
+                        <xform:editShow>
+                            <tr type='optRow' class='tr_normal_opt'>
+                                <td row='3' column='0' align='center' coltype='optCol'>
+                                    <nobr><span style='cursor:pointer' class='optStyle opt_add_style'
+                                                title='<bean:message bundle="sys-xform" key="xform.button.add" />'
+                                                onclick='DocList_AddRow();XFom_RestValidationElements();'></span>&nbsp;&nbsp;<span
+                                            style='cursor:pointer' class='optStyle opt_up_style'
+                                            title='<bean:message bundle="sys-xform" key="xform.button.moveup" />'
+                                            onclick='DocList_MoveRowBySelect(-1);'></span>&nbsp;&nbsp;<span
+                                            style='cursor:pointer' class='optStyle opt_down_style'
+                                            title='<bean:message bundle="sys-xform" key="xform.button.movedown" />'
+                                            onclick='DocList_MoveRowBySelect(1);'></span></nobr>
+                                </td>
+                            </tr>
+                        </xform:editShow>
+
+                    </TABLE>
+                </div>
+            </TD>
+        </TR>
+        </TBODY>
+    </TABLE>
+</xform:right>

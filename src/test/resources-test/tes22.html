@@ -1,0 +1,740 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/resource/jsp/common.jsp"%>
+<%@ page import="com.landray.kmss.web.taglib.xform.TagUtils" %>
+<TABLE id=fd_2f940cb9340b4a class=tb_normal align=center label="主表" style="width:100%;">
+    <TBODY>
+    <TR style="HEIGHT: 37px">
+        <TD class=td_normal_title style="WIDTH: auto" width=1232 colSpan=6 align=center column="0,1,2,3,4,5" row="0">
+            <LABEL style="FONT-SIZE: 22px; TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; COLOR: #0000ff; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_2f940cd8b0d634' option='content'/>
+            </LABEL>
+        </TD>
+    </TR>
+    <TR>
+        <TD class=td_normal_title style="WIDTH: auto" width=1232 colSpan=6 align=right column="0,1,2,3,4,5" row="1">
+            <ui:flowFunctionary fdId='157550b9a231436c3ae8de04e52b1035'/>
+        </TD>
+    </TR>
+    <TR>
+        <TD class=td_normal_title style="WIDTH: auto" width=1232 colSpan=6 align=left column="0,1,2,3,4,5" row="2">
+            <LABEL style="FONT-SIZE: 16px; TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; COLOR: #0000ff; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_2f940d482b1b1e' option='content'/>
+            </LABEL>
+
+
+            <DIV style="display:none;" canShow="false">
+                <xform:xtext property="extendDataFormInfo.value(fd_2f942bc641a47e)" style="WIDTH: 40px" required="false"
+                             htmlElementProperties="thousandShow='null'" dataType="Double" showStatus="noShow"
+                             subject="${xform:subject('fd_2f942bc641a47e','label')}"
+                             title="${xform:subject('fd_2f942bc641a47e','label')}"
+                             validators=" number number scaleLength(0)" onValueChange="__xformDispatch"/>
+            </DIV>
+
+
+            <DIV style="display:none;" canShow="false">
+                <xform:xtext property="extendDataFormInfo.value(fd_2f942bcbfe4daa)" style="WIDTH: 27px" required="false"
+                             showStatus="noShow" subject="${xform:subject('fd_2f942bcbfe4daa','label')}"
+                             title="${xform:subject('fd_2f942bcbfe4daa','label')}" onValueChange="__xformDispatch"/>
+            </DIV>
+        </TD>
+    </TR>
+    <TR>
+        <TD class=td_normal_title style="WIDTH: 130px" width=115 align=right column="0" row="3">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_2f940d1a1fd64a' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 310px" width=322 column="1" row="3">
+            <LABEL style="WIDTH: 156px; DISPLAY: inline" _required=true>
+                <xform:address propertyId="extendDataFormInfo.value(fd_appby_name.id)"
+                               propertyName="extendDataFormInfo.value(fd_appby_name.name)" mulSelect="false"
+                               orgType="ORG_TYPE_PERSON" subject="${xform:subject('fd_appby_name','label')}"
+                               title="${xform:subject('fd_appby_name','label')}" style="WIDTH: 120px" required="true"
+                               onValueChange="function(value, domElement){__xformDispatch.call(this,value,domElement);$(document).trigger($.Event('relation_event_setvalue'),'fd_appby_name');}"
+                               isLoadDataDict="false"/>
+            </LABEL>
+
+            <c:if test="${param.method != 'view'}">
+                <script>
+                    Com_AddEventListener(window, "load", enterGetPersonInfo);
+                    /*页面载入时执行*/
+                    AttachXFormValueChangeEventById("fd_appby_name", enterGetPersonInfo);
+                    /*控件值变更时*/
+                    function enterGetPersonInfo() {
+                        var value = GetXFormFieldById("fd_appby_name")[0].value;
+                        /*0为值，1为显示*/
+                        if (value == "") {
+                            alert("申请人不能为空，请选择申请人！");
+                            return;
+                        }
+                        _setSapHrBaseInfo(value);
+                        /*带出工号、部门、分机*/
+                        return;
+                    }
+                    //设置基础信息
+                    function _setSapHrBaseInfo(personCode) {
+                        //调用BaseService传参取人员信息
+                        var data = new KMSSData();
+                        data.UseCache = false;
+                        data.AddBeanData("hrBaseInfoService&type=baseInfo&isClass=1&personnelReview=1&fdId=" + personCode);
+                        var rtnVal = data.GetHashMapArray();
+                        if (rtnVal.length == 1) {
+                            //设置工号
+                            GetXFormFieldById("fd_appby_no")[0].value = rtnVal[0]["fd_emp_no"];
+                            //设置部门
+                            GetXFormFieldById("fd_appby_dept2")[0].value = rtnVal[0]["fd_emp_dept_id"];
+                            GetXFormFieldById("fd_appby_dept2")[1].value = rtnVal[0]["fd_emp_dept"];
+                            GetXFormFieldById("fd_appby_deptpath")[0].value = rtnVal[0]["fd_emp_dept_path"];
+
+                            //设置分机号
+                            if (rtnVal[0]["fd_emp_phone"]) {
+                                GetXFormFieldById("fd_appby_tel")[0].value = rtnVal[0]["fd_emp_phone"];
+                            }
+                        }
+                        else {
+                            alert("没有找到该员工相关信息，请手动填写改员工工号！");
+                        }
+                    }
+
+                </script>
+            </c:if>
+
+        </TD>
+        <TD class=td_normal_title style="WIDTH: 80px" width=102 align=right column="2" row="3">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_Applicant_id' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 297px" width=299 column="3" row="3">
+
+            <DIV style="WIDTH: 206px; DISPLAY: inline" canShow="true" _required=true>
+                <xform:xtext property="extendDataFormInfo.value(fd_appby_no)" style="WIDTH: 200px" required="true"
+                             showStatus="${requestScope['SysForm.showStatus']}"
+                             subject="${xform:subject('fd_appby_no','label')}"
+                             title="${xform:subject('fd_appby_no','label')}" onValueChange="__xformDispatch"/>
+            </DIV>
+        </TD>
+        <TD class=td_normal_title style="WIDTH: 101px" vAlign=middle width=113 align=right column="4" row="3">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_2f940d1e4e4af2' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 277px" width=282 column="5" row="3">
+
+            <DIV style="WIDTH: 206px; DISPLAY: inline" canShow="true" _required=true>
+                <xform:xtext property="extendDataFormInfo.value(fd_appby_tel)" style="WIDTH: 200px" required="true"
+                             subject="${xform:subject('fd_appby_tel','label')}"
+                             title="${xform:subject('fd_appby_tel','label')}" onValueChange="__xformDispatch"/>
+            </DIV>
+        </TD>
+    </TR>
+    <TR>
+        <TD class=td_normal_title style="WIDTH: 130px" width=115 align=right column="0" row="4">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_2f940d1d185e10' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 310px" width=322 column="1" row="4">
+            <LABEL style="WIDTH: 126px; DISPLAY: inline" _required=true>
+                <xform:address propertyId="extendDataFormInfo.value(fd_appby_dept2.id)"
+                               propertyName="extendDataFormInfo.value(fd_appby_dept2.name)" mulSelect="false"
+                               orgType="ORG_TYPE_ORG|ORG_TYPE_DEPT" subject="${xform:subject('fd_appby_dept2','label')}"
+                               title="${xform:subject('fd_appby_dept2','label')}" style="WIDTH: 120px" required="true"
+                               showStatus="${requestScope['SysForm.showStatus']}"
+                               onValueChange="function(value, domElement){__xformDispatch.call(this,value,domElement);$(document).trigger($.Event('relation_event_setvalue'),'fd_appby_dept2');}"
+                               isLoadDataDict="false"/>
+            </LABEL>
+        </TD>
+        <TD class=td_normal_title style="WIDTH: 80px" width=102 align=right column="2" row="4">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_2fbea13758f56c' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 297px" width=299 column="3" row="4">
+
+            <DIV style="WIDTH: 200px; DISPLAY: inline" canShow="true">
+                <xform:xtext property="extendDataFormInfo.value(fd_appby_deptpath)" style="WIDTH: 200px"
+                             required="false" showStatus="${requestScope['SysForm.showStatus']}"
+                             subject="${xform:subject('fd_appby_deptpath','label')}"
+                             title="${xform:subject('fd_appby_deptpath','label')}" onValueChange="__xformDispatch"/>
+            </DIV>
+        </TD>
+        <TD class=td_normal_title style="WIDTH: 101px" vAlign=middle width=113 align=right column="4" row="4">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_31939276929364' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 277px" width=282 column="5" row="4">
+
+            <TABLE class=tb_noborder style="WIDTH: 86px; DISPLAY: inline" _required=true>
+                <xform:radio property="extendDataFormInfo.value(fd_TECN)" alignment="H" required="true"
+                             subject="${xform:subject('fd_TECN','label')}" title="${xform:subject('fd_TECN','label')}"
+                             onValueChange="__xformDispatch">
+                    <xform:langDataSource>
+                        <xform:lang id='fd_TECN' option='items'/>
+                    </xform:langDataSource>
+                </xform:radio>
+            </TABLE>
+
+        </TD>
+    </TR>
+    <TR>
+        <TD class=td_normal_title style="HEIGHT: auto; WIDTH: 130px" rowSpan=2 width=115 align=right column="0"
+            row="5,6">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_3193b5e39496f8' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="HEIGHT: auto; WIDTH: 310px" rowSpan=2 width=322 column="1" row="5,6">
+
+            <TABLE class=tb_noborder style="WIDTH: 297px; DISPLAY: inline" _required=true>
+                <xform:radio property="extendDataFormInfo.value(fd_type)" alignment="H" required="true"
+                             subject="${xform:subject('fd_type','label')}" title="${xform:subject('fd_type','label')}"
+                             onValueChange="__xformDispatch">
+                    <xform:langDataSource>
+                        <xform:lang id='fd_type' option='items'/>
+                    </xform:langDataSource>
+                </xform:radio>
+            </TABLE>
+
+        </TD>
+        <TD class=td_normal_title style="HEIGHT: auto; WIDTH: 80px" rowSpan=2 width=102 align=right column="2"
+            row="5,6">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_3193912b5a8542' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 297px" width=299 column="3" row="5">
+
+            <TABLE class=tb_noborder style="WIDTH: 281px; DISPLAY: inline" _required=true>
+                <xform:radio property="extendDataFormInfo.value(fd_plant)" alignment="H" required="true"
+                             subject="${xform:subject('fd_plant','label')}" title="${xform:subject('fd_plant','label')}"
+                             onValueChange="__xformDispatch">
+                    <xform:langDataSource>
+                        <xform:lang id='fd_plant' option='items'/>
+                    </xform:langDataSource>
+                </xform:radio>
+            </TABLE>
+
+
+            <xform:editShow>
+                <script>
+                    function chooseHuiQian() {
+
+                        hiddenHuiQian();
+                        var fd_plant = GetXFormFieldById("fd_plant");
+                        //alert(fd_plant);
+                        if (fd_plant[5].checked || fd_plant[4].checked || fd_plant[3].checked) {
+                            document.getElementById("huiQianTr1").style.display = "";
+                            document.getElementById("huiQianTr2").style.display = "";
+                            document.getElementById("huiQianTd1").style.display = "";
+                            document.getElementById("huiQianTd2").style.display = "";
+                            if (fd_plant[5].checked) {
+                                document.getElementById("huiQianTd1").style.display = "none";
+                                document.getElementById("huiQianTd2").style.display = "none";
+                            }
+                        }
+
+
+                    }
+
+                    function hiddenHuiQian() {
+                        var huiQianTr1 = document.getElementById("huiQianTr1");
+                        var huiQianTr2 = document.getElementById("huiQianTr2");
+                        huiQianTr1.style.display = "none";
+                        huiQianTr2.style.display = "none";
+                    }
+
+                    Com_AddEventListener(window, "load", hiddenHuiQian);
+                    /*页面载入时执行*/
+                    AttachXFormValueChangeEventById("fd_plant", chooseHuiQian);
+                    /*控件值变更时*/
+
+
+                </script>
+            </xform:editShow>
+
+        </TD>
+        <TD class=td_normal_title style="HEIGHT: auto; WIDTH: 101px" vAlign=middle rowSpan=2 width=113 align=right
+            column="4" row="5,6">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_319391993fabb8' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="HEIGHT: auto; WIDTH: 277px" rowSpan=2 width=282 column="5" row="5,6">
+
+            <DIV style="word-wrap:break-word;word-break:break-all;WIDTH: 220px; DISPLAY: inline" _required=true>
+                <xform:textarea property="extendDataFormInfo.value(fd_PFCD)" style="HEIGHT: 71px; WIDTH: 214px"
+                                required="true" subject="${xform:subject('fd_PFCD','label')}"
+                                title="${xform:subject('fd_PFCD','label')}" validators="maxLength(500)"
+                                onValueChange="__xformDispatch"/>
+            </DIV>
+        </TD>
+    </TR>
+    <TR>
+        <TD style="WIDTH: 297px" width=299 column="3" row="6">
+            <LABEL style=" DISPLAY: inline"><A
+                    style="TEXT-DECORATION: underline; FONT-FAMILY: null; FONT-WEIGHT: normal; COLOR: #0000ff; FONT-STYLE: normal"
+                    href="//oa.csot.tcl.com/km/doc/km_doc_knowledge/kmDocKnowledge.do?method=view&amp;topEdition=true&amp;fdId=14c2188412100f6cf943fde45f2946fe"
+                    target=_blank>
+                <xform:lang id='fd_32addf9c0b88a6' option='content'/>
+            </A></LABEL>
+        </TD>
+    </TR>
+    <TR style="HEIGHT: 88px">
+        <TD class=td_normal_title style="WIDTH: 130px" width=115 align=right column="0" row="7">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_3193b610421820' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 310px" width=322 column="1" row="7">
+
+            <DIV style="word-wrap:break-word;word-break:break-all;WIDTH: 250px; DISPLAY: inline">
+                <xform:textarea property="extendDataFormInfo.value(fd_oper)" style="HEIGHT: 80px; WIDTH: 250px"
+                                required="false" subject="${xform:subject('fd_oper','label')}"
+                                title="${xform:subject('fd_oper','label')}" validators="maxLength(500)"
+                                onValueChange="__xformDispatch"/>
+            </DIV>
+        </TD>
+        <TD class=td_normal_title style="WIDTH: 80px" width=102 align=right column="2" row="7">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_3193b63c0da304' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 297px" width=299 column="3" row="7">
+
+            <DIV style="word-wrap:break-word;word-break:break-all;WIDTH: 250px; DISPLAY: inline">
+                <xform:textarea property="extendDataFormInfo.value(fd_machine)" style="HEIGHT: 80px; WIDTH: 250px"
+                                required="false" subject="${xform:subject('fd_machine','label')}"
+                                title="${xform:subject('fd_machine','label')}" validators="maxLength(500)"
+                                onValueChange="__xformDispatch"/>
+            </DIV>
+        </TD>
+        <TD class=td_normal_title style="WIDTH: 101px" vAlign=middle width=113 align=right column="4" row="7">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_319391b92dc9a8' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 277px" width=282 column="5" row="7">
+
+            <DIV style="WIDTH: 120px; DISPLAY: inline" canShow="true">
+                <xform:xtext property="extendDataFormInfo.value(fd_productVersion)" style="WIDTH: 120px"
+                             required="false" subject="${xform:subject('fd_productVersion','label')}"
+                             title="${xform:subject('fd_productVersion','label')}" onValueChange="__xformDispatch"/>
+            </DIV>
+        </TD>
+    </TR>
+    <TR style="HEIGHT: 32px">
+        <TD class=td_normal_title style="WIDTH: 130px" width=115 align=right column="0" row="8">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_319391f78cc822' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 310px" width=322 column="1" row="8">
+
+            <TABLE class=tb_noborder style="WIDTH: 305px; DISPLAY: inline" _required=true>
+                <xform:radio property="extendDataFormInfo.value(fd_category)" alignment="H" required="true"
+                             subject="${xform:subject('fd_category','label')}"
+                             title="${xform:subject('fd_category','label')}" onValueChange="__xformDispatch">
+                    <xform:langDataSource>
+                        <xform:lang id='fd_category' option='items'/>
+                    </xform:langDataSource>
+                </xform:radio>
+            </TABLE>
+
+        </TD>
+        <TD class=td_normal_title style="WIDTH: 80px" vAlign=middle width=102 align=right column="2" row="8">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_319392ad5b57e6' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 297px" width=299 column="3" row="8">
+
+            <TABLE class=tb_noborder style="WIDTH: 110px; DISPLAY: inline" _required=true>
+                <xform:radio property="extendDataFormInfo.value(fd_emergency)" alignment="H" required="true"
+                             subject="${xform:subject('fd_emergency','label')}"
+                             title="${xform:subject('fd_emergency','label')}" onValueChange="__xformDispatch">
+                    <xform:langDataSource>
+                        <xform:lang id='fd_emergency' option='items'/>
+                    </xform:langDataSource>
+                </xform:radio>
+            </TABLE>
+
+        </TD>
+        <TD class=td_normal_title style="WIDTH: 101px" vAlign=middle width=113 align=right column="4" row="8">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_319392aeb478b6' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 277px" width=282 column="5" row="8">
+
+            <DIV style="WIDTH: 150px; DISPLAY: inline">
+                <xform:datetime property="extendDataFormInfo.value(fd_endtime)" style="WIDTH: 120px" required="false"
+                                subject="${xform:subject('fd_endtime','label')}"
+                                title="${xform:subject('fd_endtime','label')}" onValueChange="__xformDispatch"
+                                dateTimeType="date" isLoadDataDict="false"/>
+            </DIV>
+        </TD>
+    </TR>
+    <TR>
+        <TD class=td_normal_title style="WIDTH: 130px" width=115 align=right column="0" row="9">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_3193931e37eab4' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: auto" width=1118 colSpan=5 column="1,2,3,4,5" row="9">
+
+            <DIV style="word-wrap:break-word;word-break:break-all;WIDTH: 1020px; DISPLAY: inline" _required=true>
+                <xform:textarea property="extendDataFormInfo.value(fd_reason)" style="HEIGHT: 80px; WIDTH: 1014px"
+                                required="true" subject="${xform:subject('fd_reason','label')}"
+                                title="${xform:subject('fd_reason','label')}" validators="maxLength(500)"
+                                onValueChange="__xformDispatch"/>
+            </DIV>
+        </TD>
+    </TR>
+    <TR>
+        <TD class=td_normal_title style="WIDTH: 130px" width=115 align=right column="0" row="10">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_3193931f9f2848' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: auto" width=1118 colSpan=5 column="1,2,3,4,5" row="10">
+
+            <DIV style="word-wrap:break-word;word-break:break-all;WIDTH: 1019px; DISPLAY: inline" _required=true>
+                <xform:textarea property="extendDataFormInfo.value(fd_context)" style="HEIGHT: 80px; WIDTH: 1013px"
+                                required="true" subject="${xform:subject('fd_context','label')}"
+                                title="${xform:subject('fd_context','label')}" validators="maxLength(1000)"
+                                onValueChange="__xformDispatch"/>
+            </DIV>
+        </TD>
+    </TR>
+    <TR id=huiQianTr1>
+        <TD class=td_normal_title style="WIDTH: 130px" width=115 align=right column="0" row="11">
+            <LABEL style="TEXT-DECORATION: none;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_3323c169c3e74e' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: auto" width=322 column="1" row="11">
+            <LABEL style="WIDTH: 150px; DISPLAY: inline">
+                <xform:address propertyId="extendDataFormInfo.value(fd_gongcheng_huiqian.id)"
+                               propertyName="extendDataFormInfo.value(fd_gongcheng_huiqian.name)" mulSelect="true"
+                               orgType="ORG_TYPE_PERSON" subject="${xform:subject('fd_gongcheng_huiqian','label')}"
+                               title="${xform:subject('fd_gongcheng_huiqian','label')}" style="WIDTH: 120px"
+                               required="false"
+                               onValueChange="function(value, domElement){__xformDispatch.call(this,value,domElement);$(document).trigger($.Event('relation_event_setvalue'),'fd_gongcheng_huiqian');}"
+                               isLoadDataDict="false"/>
+            </LABEL>
+
+            <xform:editShow>
+                <script>
+                    function checkPersonNumber() {
+                        var MAX_PERSON_NUMBER = 20;  //最大人数限制为20
+                        var fd_gongcheng_huiqian = GetXFormFieldById("fd_gongcheng_huiqian")[1].value;
+                        var fd_zhizao_huiqian = GetXFormFieldById("fd_zhizao_huiqian")[1].value;
+                        var fd_gongyi_huiqian = GetXFormFieldById("fd_gongyi_huiqian")[1].value;
+                        var fd_chanping_huiqian = GetXFormFieldById("fd_chanping_huiqian")[1].value;
+                        var fd_ceshi_huiqian = GetXFormFieldById("fd_ceshi_huiqian")[1].value;
+
+                        var gongcheng_number = fd_gongcheng_huiqian.split(";");
+                        var zhizao_number = fd_zhizao_huiqian.split(";");
+                        var gongyi_number = fd_gongyi_huiqian.split(";");
+                        var chanping_number = fd_chanping_huiqian.split(";");
+                        var ceshi_number = fd_ceshi_huiqian.split(";");
+
+                        if (gongcheng_number.length > MAX_PERSON_NUMBER) {
+                            alert("工程部会签人员选择过多，会签人员不能超过" + MAX_PERSON_NUMBER + "人！");
+                            return false;
+                        }
+                        if (zhizao_number.length > MAX_PERSON_NUMBER) {
+                            alert("制造部会签人员选择过多，会签人员不能超过" + MAX_PERSON_NUMBER + "人！");
+                            return false;
+                        }
+                        if (gongyi_number.length > MAX_PERSON_NUMBER) {
+                            alert("工艺整合部会签人员选择过多，会签人员不能超过" + MAX_PERSON_NUMBER + "人！");
+                            return false;
+                        }
+                        if (chanping_number.length > MAX_PERSON_NUMBER) {
+                            alert("产品工程部会签人员选择过多，会签人员不能超过" + MAX_PERSON_NUMBER + "人！");
+                            return false;
+                        }
+                        if (ceshi_number.length > MAX_PERSON_NUMBER) {
+                            alert("测试部会签人员选择过多，会签人员不能超过" + MAX_PERSON_NUMBER + "人！");
+                            return false;
+                        }
+
+                        return true;
+
+                    }
+
+
+                    Com_Parameter.event["submit"].push(function () { // 表单提交事件，您可以在这里编写数据校验的方法，返回false则阻止表单正常提交。
+                        return checkPersonNumber();
+
+                    });
+                </script>
+            </xform:editShow>
+
+        </TD>
+        <TD class=td_normal_title vAlign=middle width=102 align=left column="2" row="11">
+            <LABEL style="TEXT-DECORATION: none;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_33842d55f31d4c' option='content'/>
+            </LABEL>
+        </TD>
+        <TD width=299 column="3" row="11">
+            <LABEL style="WIDTH: 150px; DISPLAY: inline">
+                <xform:address propertyId="extendDataFormInfo.value(fd_zhizao_huiqian.id)"
+                               propertyName="extendDataFormInfo.value(fd_zhizao_huiqian.name)" mulSelect="true"
+                               orgType="ORG_TYPE_PERSON" subject="${xform:subject('fd_zhizao_huiqian','label')}"
+                               title="${xform:subject('fd_zhizao_huiqian','label')}" style="WIDTH: 120px"
+                               required="false"
+                               onValueChange="function(value, domElement){__xformDispatch.call(this,value,domElement);$(document).trigger($.Event('relation_event_setvalue'),'fd_zhizao_huiqian');}"
+                               isLoadDataDict="false"/>
+            </LABEL>
+        </TD>
+        <TD class=td_normal_title style="WIDTH: 101px" vAlign=middle width=113 align=right column="4" row="11">
+            <LABEL style="TEXT-DECORATION: none;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_33842d580a8222' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 277px" width=282 column="5" row="11">
+            <LABEL style="WIDTH: 150px; DISPLAY: inline">
+                <xform:address propertyId="extendDataFormInfo.value(fd_gongyi_huiqian.id)"
+                               propertyName="extendDataFormInfo.value(fd_gongyi_huiqian.name)" mulSelect="true"
+                               orgType="ORG_TYPE_PERSON" subject="${xform:subject('fd_gongyi_huiqian','label')}"
+                               title="${xform:subject('fd_gongyi_huiqian','label')}" style="WIDTH: 120px"
+                               required="false"
+                               onValueChange="function(value, domElement){__xformDispatch.call(this,value,domElement);$(document).trigger($.Event('relation_event_setvalue'),'fd_gongyi_huiqian');}"
+                               isLoadDataDict="false"/>
+            </LABEL>
+        </TD>
+    </TR>
+    <TR id=huiQianTr2>
+        <TD class=td_normal_title style="WIDTH: 130px" width=115 align=right column="0" row="12">
+            <LABEL style="TEXT-DECORATION: none;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_33842d5f820cfa' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: auto" width=322 column="1" row="12">
+            <LABEL style="WIDTH: 150px; DISPLAY: inline">
+                <xform:address propertyId="extendDataFormInfo.value(fd_chanping_huiqian.id)"
+                               propertyName="extendDataFormInfo.value(fd_chanping_huiqian.name)" mulSelect="true"
+                               orgType="ORG_TYPE_PERSON" subject="${xform:subject('fd_chanping_huiqian','label')}"
+                               title="${xform:subject('fd_chanping_huiqian','label')}" style="WIDTH: 120px"
+                               required="false"
+                               onValueChange="function(value, domElement){__xformDispatch.call(this,value,domElement);$(document).trigger($.Event('relation_event_setvalue'),'fd_chanping_huiqian');}"
+                               isLoadDataDict="false"/>
+            </LABEL>
+        </TD>
+        <TD id=huiQianTd1 class=td_normal_title vAlign=middle width=102 align=left column="2" row="12">
+            <LABEL style="TEXT-DECORATION: none;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_ceshi_huiqian_wenzi' option='content'/>
+            </LABEL>
+        </TD>
+        <TD id=huiQianTd2 width=299 column="3" row="12">
+            <LABEL style="WIDTH: 150px; DISPLAY: inline">
+                <xform:address propertyId="extendDataFormInfo.value(fd_ceshi_huiqian.id)"
+                               propertyName="extendDataFormInfo.value(fd_ceshi_huiqian.name)" mulSelect="true"
+                               orgType="ORG_TYPE_PERSON" subject="${xform:subject('fd_ceshi_huiqian','label')}"
+                               title="${xform:subject('fd_ceshi_huiqian','label')}" style="WIDTH: 120px"
+                               required="false"
+                               onValueChange="function(value, domElement){__xformDispatch.call(this,value,domElement);$(document).trigger($.Event('relation_event_setvalue'),'fd_ceshi_huiqian');}"
+                               isLoadDataDict="false"/>
+            </LABEL>
+        </TD>
+        <TD class=td_normal_title style="WIDTH: 101px" vAlign=middle width=113 align=right column="4" row="12">
+            &nbsp;</TD>
+        <TD style="WIDTH: 277px" width=282 column="5" row="12">&nbsp;</TD>
+    </TR>
+    <TR>
+        <TD class=td_normal_title style="WIDTH: 130px" width=115 align=right column="0" row="13">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_31939321a1646e' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: auto" width=723 colSpan=3 column="1,2,3" row="13">
+
+            <c:import
+                    url="/sys/attachment/sys_att_main/sysAttMain_${empty _xformRight ? ((_xformMainForm.method_GET == 'add' || _xformMainForm.method_GET == 'edit') ? 'edit' : 'view') : (_xformRight == 'edit' ? 'edit' : 'view')}.jsp"
+                    charEncoding="UTF-8">
+                <c:param name="fdAttType" value="byte"/>
+                <c:param name="fdMulti" value="true"/>
+                <c:param name="fdShowMsg" value="true"/>
+                <c:param name="fdImgHtmlProperty"/>
+                <c:param name="fdKey" value="fd_3193956e9a4a12"/>
+                <c:param name="fdModelId" value="${_xformMainForm.fdId}"/>
+                <c:param name="fdModelName" value="${_xformMainForm.modelClass.name}"/>
+                <c:param name="formBeanName" value="_xformMainForm"/>
+                <c:param name="fdRequired" value="null"/>
+            </c:import>
+        </TD>
+        <TD class=td_normal_title style="WIDTH: 101px" vAlign=middle width=113 align=right column="4" row="13">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_31939340c79640' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: 277px" width=282 column="5" row="13">
+            <LABEL style=" DISPLAY: inline"><A
+                    style="TEXT-DECORATION: underline; FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal"
+                    href="//oa.csot.tcl.com/km/doc/km_doc_knowledge/kmDocKnowledge.do?method=view&amp;fdId=145215ab207bc92f7c13300426a9b829&amp;categoryId=1439a1a587dd7e162916e4b48eb9e77e&amp;orderby=docPublishTime&amp;ordertype=down&amp;nodeType=CATEGORY&amp;s_css=huaxingv2"
+                    target=_blank>
+                <xform:lang id='fd_319395a7d5448c' option='content'/>
+            </A></LABEL>
+
+            <LABEL style=" DISPLAY: inline"><A
+                    style="TEXT-DECORATION: underline; FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal"
+                    href="//oa.csot.tcl.com/km/doc/km_doc_knowledge/kmDocKnowledge.do?method=view&amp;fdId=1451ca1910505ad8ec697784c649fec5&amp;categoryId=134175f061ed2c262b6f52845898924a&amp;orderby=docPublishTime&amp;ordertype=down&amp;nodeType=CATEGORY&amp;s_css=huaxingv2"
+                    target=_blank>
+                <xform:lang id='fd_3193beed951a68' option='content'/>
+            </A></LABEL>
+
+            <LABEL style=" DISPLAY: inline"><A
+                    style="TEXT-DECORATION: underline; FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal"
+                    href="//oa.csot.tcl.com/km/doc/km_doc_knowledge/kmDocKnowledge.do?method=view&amp;fdId=1451ca20e3f3657ef81899d4b969224b&amp;categoryId=134175f061ed2c262b6f52845898924a&amp;orderby=docPublishTime&amp;ordertype=down&amp;nodeType=CATEGORY&amp;s_css=huaxingv2"
+                    target=_blank>
+                <xform:lang id='fd_3193bf0c60af70' option='content'/>
+            </A></LABEL>
+
+            <LABEL style=" DISPLAY: inline"><A
+                    style="TEXT-DECORATION: underline; FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal"
+                    href="//oa.csot.tcl.com/km/doc/km_doc_knowledge/kmDocKnowledge.do?method=view&amp;fdId=1451ca26b6bcbcf644e655645309fb21&amp;categoryId=134175f061ed2c262b6f52845898924a&amp;orderby=docPublishTime&amp;ordertype=down&amp;nodeType=CATEGORY&amp;s_css=huaxingv2"
+                    target=_blank>
+                <xform:lang id='fd_31962256337d8a' option='content'/>
+            </A></LABEL>
+        </TD>
+    </TR>
+    <TR>
+        <TD class=td_normal_title style="WIDTH: 130px" width=115 align=right column="0" row="14">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_319395861bb69e' option='content'/>
+            </LABEL>
+        </TD>
+        <TD style="WIDTH: auto" width=1118 colSpan=5 column="1,2,3,4,5" row="14">
+            <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; COLOR: #ff0000; FONT-STYLE: normal; DISPLAY: inline">
+                <xform:lang id='fd_3193b93406ee8c' option='content'/>
+            </LABEL>
+        </TD>
+    </TR>
+    </TBODY>
+</TABLE>
+<xform:right mode_N18="view" mode_N17="view" mode_N16="edit" mode_N13="hidden" mode_N10="hidden" mode_N7="hidden"
+             mode_N5="hidden" mode_N6="hidden" mode_N2="hidden" mode_N12="edit" mode_N8="edit" mode_N54="edit"
+             mode_N55="edit" mode_N56="edit" mode_N70="view" mode_N71="view" mode_g="view" mode_d="hidden"
+             mode_N38="edit" def_N18="false" def_N17="false" def_N16="false" def_N13="false" def_N10="false"
+             def_N7="false" def_N5="false" def_N6="false" def_N2="false" def_N12="false" def_N8="false" def_N54="false"
+             def_N55="false" def_N56="false" def_N70="false" def_N71="false" def_d="false" def_N38="false">
+    <TABLE id=fd_2f942414aed914 class=tb_normal align=center label="表格1" style="width:100%;">
+        <TBODY>
+        <TR style="HEIGHT: 32px">
+            <TD class=td_normal_title style="WIDTH: auto" width=1228 colSpan=6 column="0,1,2,3,4,5" row="0">
+                <LABEL style="FONT-SIZE: 16px; TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; COLOR: #0000ff; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2f9425efebf3b4' option='content'/>
+                </LABEL>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title style="WIDTH: 156px" width=159 align=right column="0" row="1">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2f9425fbe5fff2' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 178px" width=192 column="1" row="1">
+                <LABEL style="WIDTH: 156px; DISPLAY: inline" _required=true>
+                    <xform:address propertyId="extendDataFormInfo.value(fd_Implementer.id)"
+                                   propertyName="extendDataFormInfo.value(fd_Implementer.name)" mulSelect="false"
+                                   orgType="ORG_TYPE_PERSON" subject="${xform:subject('fd_Implementer','label')}"
+                                   title="${xform:subject('fd_Implementer','label')}" style="WIDTH: 120px"
+                                   required="true"
+                                   onValueChange="function(value, domElement){__xformDispatch.call(this,value,domElement);$(document).trigger($.Event('relation_event_setvalue'),'fd_Implementer');}"
+                                   isLoadDataDict="false"/>
+                </LABEL>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 188px" width=186 align=right column="2" row="1">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2f9426178f099e' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 240px" width=240 column="3" row="1">
+
+                <DIV style="WIDTH: 126px; DISPLAY: inline" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_Implementer_no)" style="WIDTH: 120px"
+                                 required="true" subject="${xform:subject('fd_Implementer_no','label')}"
+                                 title="${xform:subject('fd_Implementer_no','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+
+                <script>
+                    Com_AddEventListener(window, "load", enterGetPersonInfo2);
+                    /*页面载入时执行*/
+                    AttachXFormValueChangeEventById("fd_Implementer", enterGetPersonInfo2);
+                    /*控件值变更时*/
+                    function enterGetPersonInfo2() {
+                        var value = GetXFormFieldById("fd_Implementer")[0].value;
+                        /*0为值，1为显示*/
+                        if (value == "") {
+                            /*alert("申请人不能为空，请选择申请人！");*/
+                            return;
+                        }
+                        _setSapHrBaseInfo2(value);
+                        /*带出工号、部门、分机*/
+                        return;
+                    }
+                    //设置基础信息
+                    function _setSapHrBaseInfo2(personCode) {
+                        //调用BaseService传参取人员信息
+                        var data = new KMSSData();
+                        data.UseCache = false;
+                        data.AddBeanData("hrBaseInfoService&type=baseInfo&isClass=1&personnelReview=1&fdId=" + personCode);
+                        var rtnVal = data.GetHashMapArray();
+                        if (rtnVal.length == 1) {
+                            //设置工号
+                            GetXFormFieldById("fd_Implementer_no")[0].value = rtnVal[0]["fd_emp_no"];
+                        }
+                    }
+
+                </script>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 186px" vAlign=middle width=182 align=right column="4" row="1">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_31939471784416' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 253px" width=269 column="5" row="1">
+
+                <DIV style="word-wrap:break-word;word-break:break-all;WIDTH: 250px; DISPLAY: inline">
+                    <xform:textarea property="extendDataFormInfo.value(fd_memo)" style="HEIGHT: 80px; WIDTH: 250px"
+                                    required="false" subject="${xform:subject('fd_memo','label')}"
+                                    title="${xform:subject('fd_memo','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title style="WIDTH: 156px" width=159 align=right column="0" row="2">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_2f9425fccd2d5e' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 178px" width=192 column="1" row="2">
+
+                <DIV style="WIDTH: 150px; DISPLAY: inline">
+                    <xform:datetime property="extendDataFormInfo.value(fd_finish_date)" style="WIDTH: 120px"
+                                    required="false" subject="${xform:subject('fd_finish_date','label')}"
+                                    title="${xform:subject('fd_finish_date','label')}" onValueChange="__xformDispatch"
+                                    dateTimeType="date" isLoadDataDict="false"/>
+                </DIV>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 188px" width=186 align=right column="2" row="2">
+                <LABEL style="TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑;  FONT-WEIGHT: normal; FONT-STYLE: normal; DISPLAY: inline">
+                    <xform:lang id='fd_319394876c3f0c' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: auto" width=691 colSpan=3 column="3,4,5" row="2">
+
+                <DIV style="WIDTH: 120px; DISPLAY: inline" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_Total_hours)" style="WIDTH: 120px"
+                                 required="false" subject="${xform:subject('fd_Total_hours','label')}"
+                                 title="${xform:subject('fd_Total_hours','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        </TBODY>
+    </TABLE>
+</xform:right>

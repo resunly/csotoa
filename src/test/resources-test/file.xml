@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.6.0" class="java.beans.XMLDecoder">
+    <object class="java.util.HashMap">
+        <void method="put">
+            <string>fdBDTER</string>
+            <string></string>
+        </void>
+        <void method="put">
+            <string>fdRSNUM</string>
+            <string>sn00001233</string>
+        </void>
+        <void method="put">
+            <string>fdKOSTL</string>
+            <string>生产</string>
+        </void>
+        <void method="put">
+            <string>fdEmpNO</string>
+            <string>sn000098</string>
+        </void>
+        <void method="put">
+            <string>fdBWART</string>
+            <string>借出</string>
+        </void>
+        <void method="put">
+            <string>fdItemDetails</string>
+            <object class="java.util.ArrayList">
+                <void method="add">
+                    <object class="java.util.HashMap">
+                        <void method="put">
+                            <string>fdMATNR</string>
+                            <string>sn000123</string>
+                        </void>
+                        <void method="put">
+                            <string>fdATWRT2</string>
+                            <string>test</string>
+                        </void>
+                        <void method="put">
+                            <string>fdATWRT3</string>
+                            <string>1.1</string>
+                        </void>
+                        <void method="put">
+                            <string>fdLINE</string>
+                            <string></string>
+                        </void>
+                        <void method="put">
+                            <string>fdCHARG</string>
+                            <string>122233222</string>
+                        </void>
+                        <void method="put">
+                            <string>fdMEINS</string>
+                            <string>g</string>
+                        </void>
+                        <void method="put">
+                            <string>fdId</string>
+                            <string>15ccf380bff6ebdbbfbd9cc482691566</string>
+                        </void>
+                        <void method="put">
+                            <string>fdLGORT1</string>
+                            <string>test</string>
+                        </void>
+                        <void method="put">
+                            <string>fdLGORT2</string>
+                            <string>test1</string>
+                        </void>
+                        <void method="put">
+                            <string>fdMENGE1</string>
+                            <string>12</string>
+                        </void>
+                        <void method="put">
+                            <string>fdMENGE2</string>
+                            <string>222</string>
+                        </void>
+                        <void method="put">
+                            <string>fdMCODE</string>
+                            <string>ser33344555f</string>
+                        </void>
+                        <void method="put">
+                            <string>fdMAKTX</string>
+                            <string>test</string>
+                        </void>
+                    </object>
+                </void>
+            </object>
+        </void>
+        <void method="put">
+            <string>fd_3127478fddf3c6</string>
+            <string>胡昌龙</string>
+        </void>
+        <void method="put">
+            <string>fdISBOM</string>
+            <string></string>
+        </void>
+        <void method="put">
+            <string>fdTYPE</string>
+            <string>3</string>
+        </void>
+        <void method="put">
+            <string>fdAUFNR</string>
+            <string>se0001</string>
+        </void>
+        <void method="put">
+            <string>fdItemDetails_index_</string>
+            <object class="java.util.HashMap"/>
+        </void>
+        <void method="put">
+            <string>fdREMARK</string>
+            <string>test</string>
+        </void>
+    </object>
+</java>

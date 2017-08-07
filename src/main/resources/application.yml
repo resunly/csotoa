@@ -1,0 +1,11 @@
+server:
+    port: 8091
+logging:
+  config: classpath:logback-spring.xml
+  #path: /apps/svr/map/interface_jar/csotAppLog
+  path: /csotAppLog
+  level:
+    root: info
+spring:
+  profiles:
+    active: dev

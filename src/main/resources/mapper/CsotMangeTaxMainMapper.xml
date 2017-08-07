@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.managetax.mapper.IKmCsotManageTaxMainMapper">
+    <select id="getKmCostmanageTaxMain" resultType="com.csot.csotoa.managetax.bean.KmCsotmanageTaxMain">
+        select fd_id fdId,fd_voucher_state fdVoucherState,fd_sap_status fdSapStatus,fd_sap_message fdSapMessage,
+        fd_bank_pay_state fdBankPayState,fd_paymenttype fdPaymenttype,doc_subject docSubject,doc_status docStatus,
+        doc_create_time docCreateTime,doc_alter_time docAlterTime,fd_last_modified_time fdLastModifiedTime,
+        fd_apply_number fdApplyNumber,fd_payee fdPayee,fd_payee_opening_bank fdPayeeOpeningBank,
+        fd_payee_account_number fdPayeeAccountNumber,fd_amount fdAmount,fd_pay_type fdPayType,
+        doc_category_id docCategoryId,doc_creator_id docCreatorId,doc_alteror_id docAlterorId,doc_dept_id docDeptId,
+        auth_att_nodownload authAttNodownload,auth_att_nocopy authAttNocopy,auth_att_noprint authAttNoprint,
+        auth_reader_flag authReaderFlag,fd_ledger_id fdLedgerId,fd_print_state fdPrintState,fd_print_total fdPrintTotal,
+        doc_publish_time docPublishTime,fd_applyperson_phone fdApplypersonPhone,fd_goods_type fdGoodsType,fd_tari_amount fdTariAmount,
+        fd_vat_amount fdVatAmount,fd_deposit_amount fdDepositAmount,acc_mode_id accModeId,fd_ygt_pay_time fdYgtPayTime,
+        fd_cont_amount fdContAmount from Km_Costmanage_Tax_Main where fd_id = #{fdId}
+    </select>
+    <select id="getDetailList" resultType="com.csot.csotoa.managetax.bean.KmCsotmanageTaxDetail">
+        select fd_id fdId,fd_order fdOrder,fd_tax_list_no fdTaxListNo,fd_goods_no fdGoodsNo,fd_fee_type fdFeeType,
+        fd_po_no fdPoNo,fd_material_no fdMaterialNo,fd_goods_desc fdGoodsDesc,fd_quantity fdQuantity,
+        fd_supplier_short_name fdSupplierShortName,fd_full_price fdFullPrice,fd_tax_rate fdTaxRate,
+        fd_tax_amount fdTaxAmount,fd_tax_list_date fdTaxListDate,fd_tax_main_id fdTaxMainId,
+        fd_tariff fdTariff,fd_tariff_rate fdTariffRate,fd_vat fdVat,fd_vat_rate fdVatRate,fd_deposit fdDeposit,
+        fd_quantity_unit fdQuantityUnit,fd_cont fdCont,fd_cont_rate fdContRate
+        from km_costmanage_tax_list where fd_tax_main_id = #{fdId}
+    </select>
+    <select id="getProcessName" resultType="com.csot.csotoa.util.bean.SysOrgElement">
+        select fd_name fdName from km_costmanage_tax_category where fd_id = #{fdId}
+    </select>
+
+    <select id="getBankNumber" resultType="java.lang.String">
+        select fd_banknumber from KM_COSTMANAGE_SAP_BANKACCSUB where fd_id = #{fdId}
+    </select>
+</mapper>

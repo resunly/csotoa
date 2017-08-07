@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.general.mapper.IGeneralMapper">
+    <select id="getGeneralMain" resultType="com.csot.csotoa.general.bean.GeneralMain">
+        select fd_id fdId,doc_subject docSubject,doc_contract docContract,fd_number fdNumber,doc_status docStatus,
+        doc_type1 docType1,doc_type2 docType2,doc_type3 docType3,doc_type4 docType4,doc_type5 docType5,
+        doc_type6 docType6,doc_type7 docType7,doc_type8 docType8,doc_type9 docType9,doc_type10 docType10
+        from csot_General_Main where fd_id = #{fdId} and fd_template = #{tempId}
+    </select>
+
+    <select id="getCaosong" resultType="string">
+        select fd_sys_id from csot_general_caosong where fd_id = #{fdId}
+    </select>
+
+    <select id="getAduit1" resultType="string">
+        select fd_sys_id from csot_general_aduit1 where fd_id = #{fdId}
+    </select>
+
+    <select id="getAduit2" resultType="string">
+        select fd_sys_id from csot_general_aduit2 where fd_id = #{fdId}
+    </select>
+
+    <select id="getAduit3" resultType="string">
+        select fd_sys_id from csot_general_aduit3 where fd_id = #{fdId}
+    </select>
+
+    <select id="getAduit4" resultType="string">
+        select fd_sys_id from csot_general_aduit4 where fd_id = #{fdId}
+    </select>
+
+    <select id="getAduit5" resultType="string">
+        select fd_sys_id from csot_general_aduit5 where fd_id = #{fdId}
+    </select>
+
+    <select id="getAduit6" resultType="string">
+        select fd_sys_id from csot_general_aduit6 where fd_id = #{fdId}
+    </select>
+
+    <select id="getAduit7" resultType="string">
+        select fd_sys_id from csot_general_aduit7 where fd_id = #{fdId}
+    </select>
+
+    <select id="getAduit8" resultType="string">
+        select fd_sys_id from csot_general_aduit8 where fd_id = #{fdId}
+    </select>
+
+    <select id="getAduit9" resultType="string">
+        select fd_sys_id from csot_general_aduit9 where fd_id = #{fdId}
+    </select>
+
+    <select id="getAduit10" resultType="string">
+        select fd_sys_id from csot_general_aduit10 where fd_id = #{fdId}
+    </select>
+
+</mapper>

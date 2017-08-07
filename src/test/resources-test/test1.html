@@ -1,0 +1,783 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/resource/jsp/common.jsp"%>
+<%@ page import="com.landray.kmss.web.taglib.xform.TagUtils" %>
+
+<xform:right mode_g="view" mode_d="view" mode_N2="edit" def_N2="false">
+    <TABLE id=fd_2f82e07fd0b35c class=tb_normal align=center label="主表" style="width:100%;">
+        <TBODY>
+        <TR>
+            <TD class=td_normal_title style="WIDTH: auto" vAlign=middle width=1074 colSpan=4 align=center
+                column="0,1,2,3" row="0">
+                <LABEL style="FONT-SIZE: 22px; FONT-FAMILY: 宋体; FONT-WEIGHT: bold; COLOR: #0000ff; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 115px">
+                    <xform:lang id='fd_32ed5ae7794060' option='content'/>
+                </LABEL>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title style="WIDTH: auto" width=1074 colSpan=4 align=right column="0,1,2,3" row="1">
+                <ui:flowFunctionary fdId='157550b96fca622b32f77334a5dab71a'/>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title width=159 column="0" row="2">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 84px">
+                    <xform:lang id='fd_2f82e0ef67fac0' option='content'/>
+                </LABEL>
+            </TD>
+            <TD width=282 column="1" row="2">
+
+                <DIV style="DISPLAY: inline; WIDTH: 120px" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_main_no)" style="WIDTH: 120px" required="false"
+                                 showStatus="${requestScope['SysForm.showStatus']}"
+                                 subject="${xform:subject('fd_main_no','label')}"
+                                 title="${xform:subject('fd_main_no','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 263px" width=304 column="2" row="2">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 48px">
+                    <xform:lang id='fd_2f82e10be2c0fe' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 361px" width=330 column="3" row="2">
+
+                <DIV style="DISPLAY: inline; WIDTH: 156px" _required=true>
+                    <xform:datetime property="extendDataFormInfo.value(fd_happen_date)" style="WIDTH: 120px"
+                                    required="true" subject="${xform:subject('fd_happen_date','label')}"
+                                    title="${xform:subject('fd_happen_date','label')}" onValueChange="__xformDispatch"
+                                    dateTimeType="datetime" isLoadDataDict="false"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title width=159 column="0" row="3">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 48px">
+                    <xform:lang id='fd_2f82e11aaa8512' option='content'/>
+                </LABEL>
+            </TD>
+            <TD width=282 column="1" row="3">
+
+                <DIV style="WORD-WRAP: break-word; WORD-BREAK: break-all; DISPLAY: inline; WIDTH: 125px" canShow="true"
+                     _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_happen_cb_name)" style="WIDTH: 120px"
+                                 required="true" subject="${xform:subject('fd_happen_cb_name','label')}"
+                                 title="${xform:subject('fd_happen_cb_name','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+
+                <xform:editShow>
+
+
+                    <script language="JavaScript">
+                        function selCB() {
+                            var fd_happen_cb_id = GetXFormFieldById("fd_happen_cb_id")[0].value;
+
+                            Dialog_List(false, 'extendDataFormInfo.value(fd_happen_cb_id)', 'extendDataFormInfo.value(fd_happen_cb_name)', null,
+                                    "csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&cj=1", null,
+                                    "csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&keyword=!{keyword}&fdName=fdName&search=true");
+
+                            var fd_happen_cb_id_after = GetXFormFieldById("fd_happen_cb_id")[0].value;
+                            if (fd_happen_cb_id_after != fd_happen_cb_id) {
+                                GetXFormFieldById("fd_happen_zd_id")[0].value = "";
+                                GetXFormFieldById("fd_happen_zd_name")[0].value = "";
+                                GetXFormFieldById("fd_happen_zd_code")[0].value = "";
+
+                                GetXFormFieldById("fd_happen_xb_id")[0].value = "";
+                                GetXFormFieldById("fd_happen_xb_name")[0].value = "";
+                                GetXFormFieldById("fd_happen_xb_code")[0].value = "";
+
+                                GetXFormFieldById("fd_happen_jt_id")[0].value = "";
+                                GetXFormFieldById("fd_happen_jt_code")[0].value = "";
+                                GetXFormFieldById("fd_happen_jt_name")[0].value = "";
+
+
+                            }
+                            var data = new KMSSData();
+                            data.UseCache = false;
+                            data.AddBeanData("csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&fdId=" + fd_happen_cb_id_after);
+                            var rtnVal = data.GetHashMapArray();
+                            if (rtnVal != null && rtnVal.length > 0) {
+                                var rtnValue = rtnVal[0];
+                                document.getElementsByName("extendDataFormInfo.value(fd_happen_cb_code)")[0].value = rtnValue["code"];
+
+
+                            }
+
+                        }
+                    </script>
+                    <a href="#" onclick="selCB();">
+                        <bean:message key="dialog.selectOther"/>
+                    </a>
+                </xform:editShow>
+
+
+                <DIV style="display:none;" canShow="false">
+                    <xform:xtext property="extendDataFormInfo.value(fd_happen_cb_id)" style="WIDTH: 40px"
+                                 required="false" showStatus="noShow"
+                                 subject="${xform:subject('fd_happen_cb_id','label')}"
+                                 title="${xform:subject('fd_happen_cb_id','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+
+
+                <DIV style="display:none;" canShow="false">
+                    <xform:xtext property="extendDataFormInfo.value(fd_happen_cb_code)" style="WIDTH: 50px"
+                                 required="false" showStatus="noShow"
+                                 subject="${xform:subject('fd_happen_cb_code','label')}"
+                                 title="${xform:subject('fd_happen_cb_code','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+
+
+                <DIV style="display:none;" canShow="false">
+                    <xform:xtext property="extendDataFormInfo.value(fd_cb_org_id)" style="WIDTH: 26px" required="false"
+                                 showStatus="noShow" subject="${xform:subject('fd_cb_org_id','label')}"
+                                 title="${xform:subject('fd_cb_org_id','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 263px" width=304 column="2" row="3">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 108px">
+                    <xform:lang id='fd_2f82e16d56d334' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 361px" width=330 column="3" row="3">
+
+                <DIV style="DISPLAY: inline; WIDTH: 126px" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_happen_zd_code)" style="WIDTH: 120px"
+                                 required="true" subject="${xform:subject('fd_happen_zd_code','label')}"
+                                 title="${xform:subject('fd_happen_zd_code','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+
+                <xform:editShow>
+
+
+                    <script language="JavaScript">
+                        function selZD() {
+                            var fdParentId = GetXFormFieldById("fd_happen_cb_id")[0].value;
+                            var fd_happen_zd_id = GetXFormFieldById("fd_happen_zd_id")[0].value;
+
+                            Dialog_List(false, 'extendDataFormInfo.value(fd_happen_zd_id)', 'extendDataFormInfo.value(fd_happen_zd_name)', null,
+                                    "csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&cj=2&fdParentId=" + fdParentId, null,
+                                    "csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&keyword=!{keyword}&fdName=fdName&search=true");
+
+                            var fd_happen_zd_id_after = GetXFormFieldById("fd_happen_zd_id")[0].value;
+                            if (fd_happen_zd_id_after != fd_happen_zd_id) {
+                                GetXFormFieldById("fd_happen_xb_id")[0].value = "";
+                                GetXFormFieldById("fd_happen_xb_name")[0].value = "";
+                                GetXFormFieldById("fd_happen_xb_code")[0].value = "";
+                                GetXFormFieldById("fd_happen_jt_id")[0].value = "";
+                                GetXFormFieldById("fd_happen_jt_name")[0].value = "";
+                                GetXFormFieldById("fd_happen_jt_code")[0].value = "";
+                            }
+                            var fd_happen_zd_id_2 = GetXFormFieldById("fd_happen_zd_id")[0].value;
+
+                            if (fd_happen_zd_id_2 != "" && fd_happen_zd_id_2 != null) {
+                                var data = new KMSSData();
+                                data.UseCache = false;
+                                data.AddBeanData("csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&fdId=" + fd_happen_zd_id_2);
+                                var rtnVal = data.GetHashMapArray();
+                                if (rtnVal != null && rtnVal.length > 0) {
+                                    var rtnValue = rtnVal[0];
+                                    document.getElementsByName("extendDataFormInfo.value(fd_happen_zd_code)")[0].value = rtnValue["code"];
+
+
+                                }
+                            } else {
+                                document.getElementsByName("extendDataFormInfo.value(fd_happen_zd_code)")[0].value = "";
+                            }
+
+                        }
+                    </script>
+                    <a href="#" onclick="selZD();">
+                        <bean:message key="dialog.selectOther"/>
+                    </a>
+                </xform:editShow>
+
+
+                <DIV style="WORD-WRAP: break-word; WORD-BREAK: break-all; DISPLAY: inline; WIDTH: 125px" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_happen_zd_name)" style="WIDTH: 120px"
+                                 required="false" subject="${xform:subject('fd_happen_zd_name','label')}"
+                                 title="${xform:subject('fd_happen_zd_name','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+
+
+                <DIV style="display:none;" canShow="false">
+                    <xform:xtext property="extendDataFormInfo.value(fd_happen_zd_id)" style="WIDTH: 32px"
+                                 required="false" showStatus="noShow"
+                                 subject="${xform:subject('fd_happen_zd_id','label')}"
+                                 title="${xform:subject('fd_happen_zd_id','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR style="HEIGHT: 32px">
+            <TD class=td_normal_title width=159 column="0" row="4">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 114px">
+                    <xform:lang id='fd_2f82e175acb050' option='content'/>
+                </LABEL>
+            </TD>
+            <TD width=282 column="1" row="4">
+
+                <DIV style="DISPLAY: inline; WIDTH: 124px" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_happen_xb_code)" style="WIDTH: 118px"
+                                 required="true" subject="${xform:subject('fd_happen_xb_code','label')}"
+                                 title="${xform:subject('fd_happen_xb_code','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+
+                <xform:editShow>
+
+
+                    <script language="JavaScript">
+                        function selXB() {
+                            var fdParentId = GetXFormFieldById("fd_happen_zd_id")[0].value;
+                            var fd_happen_xb_id = GetXFormFieldById("fd_happen_xb_id")[0].value;
+
+                            Dialog_List(false, 'extendDataFormInfo.value(fd_happen_xb_id)', 'extendDataFormInfo.value(fd_happen_xb_name)', null,
+                                    "csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&cj=3&fdParentId=" + fdParentId, null,
+                                    "csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&keyword=!{keyword}&fdName=fdName&search=true");
+                            var fd_happen_xb_id_after = GetXFormFieldById("fd_happen_xb_id")[0].value;
+                            if (fd_happen_xb_id_after != fd_happen_xb_id) {
+                                GetXFormFieldById("fd_happen_jt_id")[0].value = "";
+                                GetXFormFieldById("fd_happen_jt_name")[0].value = "";
+                                GetXFormFieldById("fd_happen_jt_code")[0].value = "";
+                            }
+
+                            var fd_happen_xb_id_2 = GetXFormFieldById("fd_happen_xb_id")[0].value;
+
+                            if (fd_happen_xb_id_2 != "" && fd_happen_xb_id_2 != null) {
+                                var data = new KMSSData();
+                                data.UseCache = false;
+                                data.AddBeanData("csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&fdId=" + fd_happen_xb_id_2);
+                                var rtnVal = data.GetHashMapArray();
+                                if (rtnVal != null && rtnVal.length > 0) {
+                                    var rtnValue = rtnVal[0];
+                                    document.getElementsByName("extendDataFormInfo.value(fd_happen_xb_code)")[0].value = rtnValue["code"];
+
+
+                                }
+                            } else {
+                                document.getElementsByName("extendDataFormInfo.value(fd_happen_xb_code)")[0].value = "";
+                            }
+                        }
+                    </script>
+                    <a href="#" onclick="selXB();">
+                        <bean:message key="dialog.selectOther"/>
+                    </a>
+                </xform:editShow>
+
+
+                <DIV style="WORD-WRAP: break-word; WORD-BREAK: break-all; DISPLAY: inline; WIDTH: 125px" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_happen_xb_name)" style="WIDTH: 120px"
+                                 required="false" subject="${xform:subject('fd_happen_xb_name','label')}"
+                                 title="${xform:subject('fd_happen_xb_name','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+
+
+                <DIV style="display:none;" canShow="false">
+                    <xform:xtext property="extendDataFormInfo.value(fd_happen_xb_id)" style="WIDTH: 41px"
+                                 required="false" showStatus="noShow"
+                                 subject="${xform:subject('fd_happen_xb_id','label')}"
+                                 title="${xform:subject('fd_happen_xb_id','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 263px" width=304 column="2" row="4">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 174px">
+                    <xform:lang id='fd_2f82e18123ab4e' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 361px" width=330 column="3" row="4">
+
+                <DIV style="DISPLAY: inline; WIDTH: 125px" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_happen_jt_code)" style="WIDTH: 119px"
+                                 required="true" subject="${xform:subject('fd_happen_jt_code','label')}"
+                                 title="${xform:subject('fd_happen_jt_code','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+
+                <xform:editShow>
+
+
+                    <script language="JavaScript">
+                        function selJT() {
+                            var fdParentId = GetXFormFieldById("fd_happen_xb_id")[0].value;
+
+                            Dialog_List(false, 'extendDataFormInfo.value(fd_happen_jt_id)', 'extendDataFormInfo.value(fd_happen_jt_name)', null,
+                                    "csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&cj=4&fdParentId=" + fdParentId, null,
+                                    "csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&keyword=!{keyword}&fdName=fdName&search=true");
+
+                            var fd_happen_jt_id = GetXFormFieldById("fd_happen_jt_id")[0].value;
+                            if (fd_happen_jt_id != "" && fd_happen_jt_id != null) {
+                                var data = new KMSSData();
+                                data.UseCache = false;
+                                data.AddBeanData("csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&fdId=" + fd_happen_jt_id);
+                                var rtnVal = data.GetHashMapArray();
+                                if (rtnVal != null && rtnVal.length > 0) {
+                                    var rtnValue = rtnVal[0];
+                                    document.getElementsByName("extendDataFormInfo.value(fd_happen_jt_code)")[0].value = rtnValue["code"];
+
+
+                                }
+                            } else {
+                                document.getElementsByName("extendDataFormInfo.value(fd_happen_jt_code)")[0].value = "";
+                            }
+
+                        }
+                    </script>
+                    <a href="#" onclick="selJT();">
+                        <bean:message key="dialog.selectOther"/>
+                    </a>
+                </xform:editShow>
+
+
+                <DIV style="WORD-WRAP: break-word; WORD-BREAK: break-all; DISPLAY: inline; WIDTH: 125px" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_happen_jt_name)" style="WIDTH: 120px"
+                                 required="false" subject="${xform:subject('fd_happen_jt_name','label')}"
+                                 title="${xform:subject('fd_happen_jt_name','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+
+
+                <DIV style="display:none;" canShow="false">
+                    <xform:xtext property="extendDataFormInfo.value(fd_happen_jt_id)" style="WIDTH: 47px"
+                                 required="false" showStatus="noShow"
+                                 subject="${xform:subject('fd_happen_jt_id','label')}"
+                                 title="${xform:subject('fd_happen_jt_id','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR style="HEIGHT: 32px">
+            <TD class=td_normal_title width=159 column="0" row="5">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 90px">
+                    <xform:lang id='fd_2f82e1ac1eb316' option='content'/>
+                </LABEL>
+            </TD>
+            <TD width=282 column="1" row="5">
+
+                <DIV style="DISPLAY: inline; WIDTH: 120px" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_pfcd)" style="WIDTH: 120px" required="false"
+                                 subject="${xform:subject('fd_pfcd','label')}"
+                                 title="${xform:subject('fd_pfcd','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 263px" width=304 column="2" row="5">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 42px">
+                    <xform:lang id='fd_2f82e21cc5c886' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: 361px" width=330 column="3" row="5">
+
+                <DIV style="DISPLAY: inline; WIDTH: 120px" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_lotid)" style="WIDTH: 120px" required="false"
+                                 subject="${xform:subject('fd_lotid','label')}"
+                                 title="${xform:subject('fd_lotid','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title width=159 column="0" row="6">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 42px">
+                    <xform:lang id='fd_2f82e22854a4d8' option='content'/>
+                </LABEL>
+            </TD>
+            <TD width=282 column="1" row="6">
+
+                <DIV style="DISPLAY: inline; WIDTH: 120px" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_cstid)" style="WIDTH: 120px" required="false"
+                                 subject="${xform:subject('fd_cstid','label')}"
+                                 title="${xform:subject('fd_cstid','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 263px" width=304 column="2" row="6">&nbsp;</TD>
+            <TD style="WIDTH: 361px" width=330 column="3" row="6">&nbsp;</TD>
+        </TR>
+        <TR style="HEIGHT: 32px">
+            <TD class=td_normal_title width=159 column="0" row="7">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 84px">
+                    <xform:lang id='fd_30c2896d0930c4' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: auto" width=282 column="1" row="7">
+
+                <DIV style="DISPLAY: inline; WIDTH: 120px" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_epq_id)" style="WIDTH: 120px" required="false"
+                                 subject="${xform:subject('fd_epq_id','label')}"
+                                 title="${xform:subject('fd_epq_id','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+            <TD class=td_normal_title vAlign=middle width=304 align=left column="2" row="7">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 66px">
+                    <xform:lang id='fd_30c2896d95acf2' option='content'/>
+                </LABEL>
+            </TD>
+            <TD width=330 column="3" row="7">
+
+                <DIV style="DISPLAY: inline; WIDTH: 120px" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_alarm_index)" style="WIDTH: 120px"
+                                 required="false" subject="${xform:subject('fd_alarm_index','label')}"
+                                 title="${xform:subject('fd_alarm_index','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title width=159 column="0" row="8">
+                <LABEL style="FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 54px">
+                    <xform:lang id='fd_2f82e234b77b3c' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: auto" width=282 column="1" row="8">
+
+                <DIV style="DISPLAY: inline; WIDTH: 126px" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_owner)" style="WIDTH: 120px" required="true"
+                                 subject="${xform:subject('fd_owner','label')}"
+                                 title="${xform:subject('fd_owner','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+
+                <xform:editShow>
+                    <script>
+                        function personInfoChange(domElement) {
+                            var appbyNo = GetXFormFieldById("fd_owner")[0];
+                            if (appbyNo != null) {
+                                var data = new KMSSData();
+                                data.UseCache = false;
+                                data.AddBeanData("csotHrBaseInfoService&fdNo=" + appbyNo.value);
+                                var rtnVal = data.GetHashMapArray();
+
+                                if (rtnVal.length > 0) {
+                                    GetXFormFieldById("fd_machine_owner")[0].value = rtnVal[0]["fd_emp_name"];	// 姓名
+                                    GetXFormFieldById("fd_dept")[0].value = rtnVal[0]["fd_emp_dept_path"];	// 部门
+                                }
+                                else {
+                                    alert('工号不正确或未设置!');
+                                    GetXFormFieldById("fd_machine_owner")[0].value = "";	// 姓名
+                                    GetXFormFieldById("fd_dept")[0].value = "";	// 部门
+                                }
+                            }
+
+                        }
+                        AttachXFormValueChangeEventById("fd_owner", personInfoChange);
+
+                    </script>
+                </xform:editShow>
+            </TD>
+            <TD width=304 column="2" row="8">
+                <LABEL style="FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 102px">
+                    <xform:lang id='fd_2f8abd36ba54ce' option='content'/>
+                </LABEL>
+            </TD>
+            <TD width=335 column="3" row="8">
+
+                <DIV style="DISPLAY: inline; WIDTH: 126px" canShow="true" _required=true>
+                    <xform:xtext property="extendDataFormInfo.value(fd_machine_owner)" style="WIDTH: 120px"
+                                 required="true" subject="${xform:subject('fd_machine_owner','label')}"
+                                 title="${xform:subject('fd_machine_owner','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title width=159 column="0" row="9">
+                <LABEL style="FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 72px">
+                    <xform:lang id='fd_34293e47edf436' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: auto" width=915 colSpan=3 column="1,2,3" row="9">
+
+                <DIV style="DISPLAY: inline; WIDTH: 518px" canShow="true">
+                    <xform:xtext property="extendDataFormInfo.value(fd_dept)" style="WIDTH: 518px" required="false"
+                                 subject="${xform:subject('fd_dept','label')}"
+                                 title="${xform:subject('fd_dept','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title width=159 column="0" row="10">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 84px">
+                    <xform:lang id='fd_2f85144d481ff2' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: auto" width=915 colSpan=3 column="1,2,3" row="10">
+
+                <DIV style="word-wrap:break-word;word-break:break-all;DISPLAY: inline; WIDTH: 805px">
+                    <xform:textarea property="extendDataFormInfo.value(fd_glass_qty)" style="HEIGHT: 80px; WIDTH: 805px"
+                                    required="false" subject="${xform:subject('fd_glass_qty','label')}"
+                                    title="${xform:subject('fd_glass_qty','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title width=159 column="0" row="11">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 48px">
+                    <xform:lang id='fd_2f82e240a5a650' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: auto" width=915 colSpan=3 column="1,2,3" row="11">
+                <xform:radio property="extendDataFormInfo.value(fd_exptype_id)" required="true">
+
+
+                    <xform:beanDataSource serviceBean="csotDictDataService"
+                                          selectBlock="fdCode,fdName"
+                                          whereBlock="fdType.fdCode='PEXP_YCLB'"/>
+                </xform:radio>
+
+
+                <DIV style="display:none;" canShow="false">
+                    <xform:xtext property="extendDataFormInfo.value(fd_exptype_id)" style="WIDTH: 120px"
+                                 required="false" showStatus="noShow"
+                                 subject="${xform:subject('fd_exptype_id','label')}"
+                                 title="${xform:subject('fd_exptype_id','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title width=159 column="0" row="12">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 36px">
+                    <xform:lang id='fd_2f82e25b7a8d80' option='content'/>
+                </LABEL>
+            </TD>
+            <TD width=286 column="1" row="12">
+                <LABEL style="DISPLAY: inline; WIDTH: 120px">
+                    <xform:address propertyId="extendDataFormInfo.value(fd_oper.id)"
+                                   propertyName="extendDataFormInfo.value(fd_oper.name)" mulSelect="false"
+                                   orgType="ORG_TYPE_PERSON" subject="${xform:subject('fd_oper','label')}"
+                                   title="${xform:subject('fd_oper','label')}" style="WIDTH: 120px" required="false"
+                                   showStatus="${requestScope['SysForm.showStatus']}"
+                                   onValueChange="function(value, domElement){__xformDispatch.call(this,value,domElement);$(document).trigger($.Event('relation_event_setvalue'),'fd_oper');}"
+                                   isLoadDataDict="false"/>
+                </LABEL>
+            </TD>
+            <TD class=td_normal_title style="WIDTH: 263px" width=298 column="2" row="12">&nbsp;</TD>
+            <TD style="WIDTH: 361px" width=341 column="3" row="12">&nbsp;</TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title width=159 column="0" row="13">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 48px">
+                    <xform:lang id='fd_2f82e2816e20d2' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: auto" width=915 colSpan=3 column="1,2,3" row="13">
+
+                <DIV style="word-wrap:break-word;word-break:break-all;DISPLAY: inline; WIDTH: 819px">
+                    <xform:textarea property="extendDataFormInfo.value(fd_affect_staions)"
+                                    style="HEIGHT: 80px; WIDTH: 819px" required="false"
+                                    subject="${xform:subject('fd_affect_staions','label')}"
+                                    title="${xform:subject('fd_affect_staions','label')}"
+                                    onValueChange="__xformDispatch"/>
+                </DIV>
+
+                <xform:editShow>
+
+
+                    <script language="JavaScript">
+                        function selStaions() {
+                            var fdParentId = GetXFormFieldById("fd_happen_cb_id")[0].value;
+
+                            Dialog_List(true, 'extendDataFormInfo.value(fd_affect_staion_ids)', 'extendDataFormInfo.value(fd_affect_staions)', null,
+                                    "csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&cj=2&fdParentId=" + fdParentId, null,
+                                    "csotPexpBaseinfoXmlService&service=csotPexpBaseinfoService&keyword=!{keyword}&fdName=fdName&search=true");
+
+
+                        }
+
+                        function setproperty() {
+                            var obj_valpro1 = GetXFormFieldById("fd_happen_cb_name")[0];
+                            var obj_valpro2 = GetXFormFieldById("fd_happen_zd_name")[0];
+                            var obj_valpro3 = GetXFormFieldById("fd_happen_xb_name")[0];
+                            var obj_valpro4 = GetXFormFieldById("fd_happen_jt_name")[0];
+                            var obj_valpro5 = GetXFormFieldById("fd_happen_jt_code")[0];
+                            //var obj_valpro6=GetXFormFieldById("fd_affect_staions")[0];
+                            var obj_valpro7 = GetXFormFieldById("fd_happen_zd_code")[0];
+                            var obj_valpro8 = GetXFormFieldById("fd_happen_xb_code")[0];
+
+
+                            obj_valpro1.setAttribute("readOnly", "true");
+                            obj_valpro2.setAttribute("readOnly", "true");
+                            obj_valpro3.setAttribute("readOnly", "true");
+                            obj_valpro4.setAttribute("readOnly", "true");
+                            obj_valpro5.setAttribute("readOnly", "true");
+                            //obj_valpro6.setAttribute("readOnly","true");
+                            obj_valpro7.setAttribute("readOnly", "true");
+                            obj_valpro8.setAttribute("readOnly", "true");
+
+                        }
+                        Com_AddEventListener(window, "load", setproperty);
+
+                    </script>
+                    <a href="#" onclick="selStaions();">
+                        <bean:message key="dialog.selectOther"/>
+                    </a>
+                </xform:editShow>
+
+
+                <DIV style="display:none;" canShow="false">
+                    <xform:xtext property="extendDataFormInfo.value(fd_affect_staion_ids)" style="WIDTH: 50px"
+                                 required="false" showStatus="noShow"
+                                 subject="${xform:subject('fd_affect_staion_ids','label')}"
+                                 title="${xform:subject('fd_affect_staion_ids','label')}"
+                                 onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title width=159 column="0" row="14">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 126px">
+                    <xform:lang id='fd_2f82e3437d62ee' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: auto" width=915 colSpan=3 column="1,2,3" row="14">
+
+                <DIV style="word-wrap:break-word;word-break:break-all;DISPLAY: inline; WIDTH: 898px">
+                    <xform:textarea property="extendDataFormInfo.value(fd_exp_dis)" style="HEIGHT: 164px; WIDTH: 898px"
+                                    required="false" subject="${xform:subject('fd_exp_dis','label')}"
+                                    title="${xform:subject('fd_exp_dis','label')}" onValueChange="__xformDispatch"/>
+                </DIV>
+            </TD>
+        </TR>
+        <TR>
+            <TD class=td_normal_title width=159 column="0" row="15">
+                <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 24px">
+                    <xform:lang id='fd_2f8c26a2ac5e30' option='content'/>
+                </LABEL>
+            </TD>
+            <TD style="WIDTH: auto" width=915 colSpan=3 column="1,2,3" row="15">
+
+                <c:import
+                        url="/sys/attachment/sys_att_main/sysAttMain_${empty _xformRight ? ((_xformMainForm.method_GET == 'add' || _xformMainForm.method_GET == 'edit') ? 'edit' : 'view') : (_xformRight == 'edit' ? 'edit' : 'view')}.jsp"
+                        charEncoding="UTF-8">
+                    <c:param name="fdAttType" value="byte"/>
+                    <c:param name="fdMulti" value="true"/>
+                    <c:param name="fdShowMsg" value="true"/>
+                    <c:param name="fdImgHtmlProperty"/>
+                    <c:param name="fdKey" value="fd_2f8c26b1c53b34"/>
+                    <c:param name="fdModelId" value="${_xformMainForm.fdId}"/>
+                    <c:param name="fdModelName" value="${_xformMainForm.modelClass.name}"/>
+                    <c:param name="formBeanName" value="_xformMainForm"/>
+                    <c:param name="fdRequired" value="null"/>
+                </c:import>
+            </TD>
+        </TR>
+        </TBODY>
+    </TABLE>
+    <xform:right mode_g="hidden" mode_d="hidden" mode_N2="hidden" mode_N11="hidden" mode_N4="hidden" mode_N13="hidden"
+                 mode_N12="hidden" mode_N17="hidden" mode_N8="view" mode_N5="hidden" mode_N42="edit" mode_N81="edit"
+                 def_d="false" def_N2="false" def_N11="false" def_N4="false" def_N13="false" def_N12="false"
+                 def_N17="false" def_N8="false" def_N5="false" def_N42="false" def_N81="false">
+        <TABLE id=fd_2f8abd2e0040ae class=tb_normal align=center label="表格1" style="width:100%;">
+            <TBODY>
+            <TR>
+                <TD class=td_normal_title width=269 column="0" row="0">
+                    <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 48px">
+                        <xform:lang id='fd_2f8abd71bc7d34' option='content'/>
+                    </LABEL>
+                </TD>
+                <TD width=322 column="1" row="0">
+
+                    <TABLE class=tb_noborder style="DISPLAY: inline; WIDTH: 80px">
+                        <xform:radio property="extendDataFormInfo.value(fd_is_appeal)" alignment="H" required="false"
+                                     subject="${xform:subject('fd_is_appeal','label')}"
+                                     title="${xform:subject('fd_is_appeal','label')}" onValueChange="__xformDispatch">
+                            <xform:langDataSource>
+                                <xform:lang id='fd_is_appeal' option='items'/>
+                            </xform:langDataSource>
+                        </xform:radio>
+                    </TABLE>
+
+                </TD>
+                <TD class=td_normal_title width=243 column="2" row="0">&nbsp;</TD>
+                <TD width=250 column="3" row="0">&nbsp;</TD>
+            </TR>
+            </TBODY>
+        </TABLE>
+    </xform:right>
+
+    <xform:right mode_g="view" mode_d="view" mode_N2="hidden" mode_N4="edit" mode_N8="view" mode_N5="edit"
+                 mode_N42="edit" mode_N81="edit" mode_N35="edit" mode_N33="edit" mode_N31="edit" mode_N29="edit"
+                 mode_N27="edit" mode_N23="edit" def_N2="false" def_N4="false" def_N8="false" def_N5="false"
+                 def_N42="false" def_N81="false" def_N35="false" def_N33="false" def_N31="false" def_N29="false"
+                 def_N27="false" def_N23="false">
+        <TABLE id=fd_2f8abd319fc49e class=tb_normal align=center label="表格3" style="width:100%;">
+            <TBODY>
+            <TR>
+                <TD class=td_normal_title style="WIDTH: auto" width=1073 colSpan=4 column="0,1,2,3" row="0">
+                    <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 390px">
+                        <xform:lang id='fd_2f8abd9bf19dfe' option='content'/>
+                    </LABEL>
+                </TD>
+            </TR>
+            <TR>
+                <TD class=tb_normal style="WIDTH: auto" vAlign=middle width=1073 colSpan=4 align=left column="0,1,2,3"
+                    row="1">
+
+                    <DIV style="word-wrap:break-word;word-break:break-all;DISPLAY: inline; WIDTH: 1057px">
+                        <xform:textarea property="extendDataFormInfo.value(fd_2f8abe517c7890)"
+                                        style="HEIGHT: 134px; WIDTH: 1057px" required="false"
+                                        subject="${xform:subject('fd_2f8abe517c7890','label')}"
+                                        title="${xform:subject('fd_2f8abe517c7890','label')}"
+                                        validators="maxLength(2000)" onValueChange="__xformDispatch"/>
+                    </DIV>
+                </TD>
+            </TR>
+            <TR>
+                <TD class=tb_normal style="WIDTH: auto" vAlign=middle width=1073 colSpan=4 align=left column="0,1,2,3"
+                    row="2">
+
+                    <c:import
+                            url="/sys/attachment/sys_att_main/sysAttMain_${empty _xformRight ? ((_xformMainForm.method_GET == 'add' || _xformMainForm.method_GET == 'edit') ? 'edit' : 'view') : (_xformRight == 'edit' ? 'edit' : 'view')}.jsp"
+                            charEncoding="UTF-8">
+                        <c:param name="fdAttType" value="byte"/>
+                        <c:param name="fdMulti" value="true"/>
+                        <c:param name="fdShowMsg" value="true"/>
+                        <c:param name="fdImgHtmlProperty"/>
+                        <c:param name="fdKey" value="fd_2f8c26e7a58b60"/>
+                        <c:param name="fdModelId" value="${_xformMainForm.fdId}"/>
+                        <c:param name="fdModelName" value="${_xformMainForm.modelClass.name}"/>
+                        <c:param name="formBeanName" value="_xformMainForm"/>
+                        <c:param name="fdRequired" value="null"/>
+                    </c:import>
+                </TD>
+            </TR>
+            </TBODY>
+        </TABLE>
+    </xform:right>
+
+    <xform:right mode_g="view" mode_d="view" mode_N2="hidden" mode_N11="view" mode_N4="hidden" mode_N8="hidden"
+                 mode_N5="edit" mode_N42="edit" mode_N81="edit" mode_N9="edit" mode_N10="edit" mode_N6="edit"
+                 mode_N7="view" def_N2="false" def_N11="false" def_N4="false" def_N8="false" def_N5="false"
+                 def_N42="false" def_N81="false" def_N9="false" def_N10="false" def_N6="false" def_N7="false">
+        <TABLE id=fd_2f8abda0bd8136 class=tb_normal align=center label="表格4" style="width:100%;">
+            <TBODY>
+            <TR>
+                <TD class=td_normal_title style="WIDTH: auto" width=1079 colSpan=4 column="0,1,2,3" row="0">
+                    <LABEL style="FONT-FAMILY: null; FONT-WEIGHT: normal; FONT-STYLE: normal; TEXT-DECORATION: none; DISPLAY: inline; WIDTH: 228px">
+                        <xform:lang id='fd_2f8abda1ae333a' option='content'/>
+                    </LABEL>
+                </TD>
+            </TR>
+            <TR>
+                <TD class=tb_normal style="WIDTH: auto" vAlign=middle width=1079 colSpan=4 align=left column="0,1,2,3"
+                    row="1">
+
+                    <DIV style="word-wrap:break-word;word-break:break-all;DISPLAY: inline; WIDTH: 1063px">
+                        <xform:textarea property="extendDataFormInfo.value(fd_2f8abe5348a85e)"
+                                        style="HEIGHT: 139px; WIDTH: 1063px" required="false"
+                                        subject="${xform:subject('fd_2f8abe5348a85e','label')}"
+                                        title="${xform:subject('fd_2f8abe5348a85e','label')}"
+                                        onValueChange="__xformDispatch"/>
+                    </DIV>
+                </TD>
+            </TR>
+            <TR>
+                <TD class=tb_normal style="WIDTH: auto" vAlign=middle width=1079 colSpan=4 align=left column="0,1,2,3"
+                    row="2">
+
+                    <c:import
+                            url="/sys/attachment/sys_att_main/sysAttMain_${empty _xformRight ? ((_xformMainForm.method_GET == 'add' || _xformMainForm.method_GET == 'edit') ? 'edit' : 'view') : (_xformRight == 'edit' ? 'edit' : 'view')}.jsp"
+                            charEncoding="UTF-8">
+                        <c:param name="fdAttType" value="byte"/>
+                        <c:param name="fdMulti" value="true"/>
+                        <c:param name="fdShowMsg" value="true"/>
+                        <c:param name="fdImgHtmlProperty"/>
+                        <c:param name="fdKey" value="fd_2f8c26f47173f6"/>
+                        <c:param name="fdModelId" value="${_xformMainForm.fdId}"/>
+                        <c:param name="fdModelName" value="${_xformMainForm.modelClass.name}"/>
+                        <c:param name="formBeanName" value="_xformMainForm"/>
+                        <c:param name="fdRequired" value="null"/>
+                    </c:import>
+                </TD>
+            </TR>
+            </TBODY>
+        </TABLE>
+    </xform:right>
+
+</xform:right>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.util.mapper.ICsotUtilMapper">
+    <select id="getSysOrgElement" resultType="com.csot.csotoa.util.bean.SysOrgElement">
+       select fd_id fdId,fd_name fdName,fd_no fdNo,fd_parentid fdParentid from sys_org_element where fd_id=#{fdId}
+    </select>
+
+    <select id="getAttMain" resultType="com.csot.csotoa.util.bean.AttMain">
+        select fd_id fdId,fd_model_id fdModelId,fd_key fdKey,fd_file_name fileName,fd_size fileSize,fd_file_id fdFileId
+        from sys_att_main where fd_model_id = #{fdId} order by fd_key
+    </select>
+
+    <select id="getIdByLoginName" resultType="java.lang.String">
+        select person.fd_id from sys_org_person person,sys_org_element elem
+        where person.fd_login_name = #{loginName} and person.fd_id = elem.fd_id
+        and elem.fd_is_available = 1
+    </select>
+
+    <select id="getMetaDataXml" resultType="java.lang.Object">
+        select fd_metadata_xml from sys_xform_template where fd_model_id = #{templateId}
+    </select>
+
+    <select id="getLbpmNodeById" resultType="com.csot.csotoa.util.bean.LbpmNode">
+        select fd_id fdId,fd_fact_node_id nodeId,fd_fact_node_name nodeName from lbpm_node where fd_id = #{fdId}
+        union
+        select fd_id fdId,fd_fact_node_id nodeId,fd_fact_node_name nodeName from lbpm_history_node where fd_id = #{fdId}
+    </select>
+</mapper>

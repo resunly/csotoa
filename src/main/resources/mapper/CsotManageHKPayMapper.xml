@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csot.csotoa.managehkpay.mapper.ICsotManageHKPayMapper">
+    <select id = "getHKPayMain" resultType="com.csot.csotoa.managehkpay.bean.CsotManageHKPayMain">
+      select fd_id fdId,fd_mon_end_status fdMonEndStatus,fd_sap_status_mon_end fdSapStatusMonEnd,
+      fd_sap_message_mon_end fdSapMessageMonEnd,fd_tax_flag fdTaxFlag,fd_budget_flag fdBudgetFlag,
+      fd_paymenttype fdPaymenttype,fd_open_bank_name fdOpenBankName,fd_province_of_bank fdProvinceOfBank,
+      fd_city_of_bank fdCityOfBank,fd_proposer_dept fdProposerDept,fd_bankfiliale fdBankfiliale,
+      fd_unrepayment fdUnrepayment,fd_tax fdTax,fd_sap_status fdSapStatus,fd_sap_message fdSapMessage,
+      fd_po_no fdPoNo,fd_invoice_no fdInvoiceNo,fd_budget_no fdBudgetNo,fd_pay_date fdPayDate,
+      fd_creator_phoneno fdCreatorPhoneno,fd_emp_no fdEmpNo,fd_emp_name fdEmpName,fd_emp_dept fdEmpDept,
+      fd_emp_deptno fdEmpDeptno,fd_emp_post fdEmpPost,fd_print_state fdPrintState,fd_print_total fdPrintTotal,
+      fd_check_money fdCheckMoney,fd_lc_money fdLcMoney,fd_money_home fdMoneyHome,fd_collecting_money fdCollectingMoney,
+      fd_actual_money fdActualMoney,fd_check_descrip fdCheckDescrip,fd_lc_descrip fdLcDescrip,
+      fd_collecting_descrip fdCollectingDescrip,fd_money_capital fdMoneyCapital,fd_actual_money_capital
+      fdActualMoneyCapital,fd_quits_money_capital fdQuitsMoneyCapital,fd_charge_type fdChargeType,
+      fd_ledger_flag fdLedgerFlag,has_bill hasBill,doc_subject docSubject,fd_voucher_number fdVoucherNumber,
+      f_number fNumber,budget_needed budgetNeeded,doc_create_time docCreateTime,fd_pay_time fdPayTime,
+      doc_alter_time docAlterTime,fd_open_account_bank fdOpenAccountBank,fd_apply_number fdApplyNumber,
+      fd_bank_account fdBankAccount,fd_descrip fdDescrip,fd_voucher_state fdVoucherState,fd_voucher_date fdVoucherDate,
+      fd_count_money fdCountMoney,fd_att_count fdAttCount,fd_cash_descrip fdCashDescrip,fd_other_descrip fdOtherDescrip,
+      fd_bank_pay_state fdBankPayState,doc_status docStatus,fd_bank_money fdBankMoney,auth_att_nodownload authAttNodownload,
+      auth_att_nocopy authAttNocopy,auth_att_noprint authAttNoprint,fd_cash fdCash,fd_other_money fdOtherMoney,
+      fd_account_period fdAccountPeriod,fd_bank_descrip fdBankDescrip,fd_quits_pre_payment_money fdQuitsPrePaymentMoney,
+      fd_quits_pre_payment_desc fdQuitsPrePaymentDesc,auth_reader_flag authReaderFlag,fd_person_position_id
+      fdPersonPositionId,fd_charge_detail_id fdChargeDetailId,fd_reason_code_id fdReasonCodeId,fd_ledger_id fdLedgerId,
+      fd_currency fdCurrency,fd_roe fdRoe,fd_collecting fdCollecting,fd_lc fdLc,fd_check fdCheck,fd_payee_id fdPayeeId,
+      fd_cash_subject fdCashSubject,fd_bank_subject fdBankSubject,doc_creator_id docCreatorId,fd_dept_id fdDeptId,
+      doc_alter_id docAlterId,fd_item_id fdItemId,fd_bank_id fdBankId,fd_fact_pay_id fdFactPayId,
+      doc_category_id docCategoryId,fd_proposer_id fdProposerId,fd_other_id fdOtherId,fd_payee_person fdPayeePerson,
+      doc_publish_time docPublishTime,fd_taketaxtype fdTaketaxtype,fd_is_read fdIsRead,fd_prepay_flag fdPrepayFlag,
+      is_csf isCsf,fd_csf fdCsf,fd_role fdRole,fd_fproduct_state fdFproductState,fd_is_proa fdIsProa,
+      fd_payee_supplier fdPayeeSupplier,acc_mode_id accModeId from KM_COSTMANAGE_HKPAY_MAIN where fd_id = #{fdId}
+    </select>
+
+    <select id="getCategoryName" resultType="java.lang.String">
+      select fd_name from km_costmanage_hkpay_category where fd_id = #{fdId}
+    </select>
+
+    <select id="getFdLedgerName" resultType="java.lang.String">
+      select fd_banknumber from km_costmanage_sap_bankaccsub where fd_id = #{fdId}
+    </select>
+
+    <select id = "getFdFeeDetailName" resultType="java.lang.String">
+      select fd_fee_detail from Km_Costmanage_Fee_Detail where fd_id = #{fdId}
+    </select>
+
+    <select id = "getSupplierInfo" resultType="com.csot.csotoa.managehkpay.bean.CsotSupplierInfo">
+      select fd_id fdId,fd_supplier_cnname supplierName,fd_bank_account bankAccount,fd_bank_name bankName
+      from csot_supplier_information where fd_id = #{fdId}
+    </select>
+
+    <select id ="getHKPayList" resultType="com.csot.csotoa.managehkpay.bean.CsotManageHKPayList">
+        select fd_id fdId,has_bill hasBill,fd_tax fdTax,is_inner_item isInnerItem,fd_item_id fdItemId,
+        fd_budget_code fdBudgetCode,fd_pay_descrip fdPayDescrip,fd_money fdMoney,fd_unrepayment fdUnrepayment,
+        fd_rite_down_money fdRiteDownMoney,fd_rite_down_money_sum fdRiteDownMoneySum,fd_descrip fdDescrip,
+        fd_happen_time fdHappenTime,fd_order fdOrder,fd_project_ids fdProjectIds,fd_cost_center_id fdCostCenterId,
+        fd_pay_main_id fdPayMainId,fd_charge_detail_id fdChargeDetailId,fd_cost_center_name fdCostCenterName,
+        (select fd_fee_detail from km_costmanage_fee_detail where fd_id = fd_charge_detail_id) fdChargeDetailName,
+        (select fd_name from km_costmanage_item_main where fd_id = fd_item_id)fdItemName,fd_pro_no fdProNo
+        from KM_COSTMANAGE_HKPAY_LIST where fd_pay_main_id = #{fdId}
+    </select>
+
+    <select id ="getHKPrePayList" resultType="com.csot.csotoa.managehkpay.bean.CsotManageHKPrePay">
+        select fd_id fdId,fd_apply_number fdApplyNumber,fd_pay_descrip fdPayDescrip,fd_money fdMoney,
+        fd_unrepayment fdUnrepayment,fd_rite_down_money fdRiteDownMoney,fd_rite_down_money_sum fdRiteDownMoneySum,
+        fd_descrip fdDescrip,fd_happen_time fdHappenTime,fd_order fdOrder,fd_pay_main_id fdPayMainId,
+        fd_old_prepay_main_id fdOldPrepayMainId,fd_currency_id fdCurrencyId,fd_prepay_main_id fdPrepayMainId
+        from KM_COSTMANAGE_PRE_HKPAY where fd_pay_main_id = #{fdId}
+    </select>
+
+    <select id="getHKPayGysList" resultType="com.csot.csotoa.managehkpay.bean.CsotmanageHKPayGysDetail">
+        select fd_id fdId,fd_matching_no fdMatchingNo,fd_purchase_group_code fdPurchaseGroupCode,fd_invoice_no fdInvoiceNo,
+        fd_voucher_no fdVoucherNo,fd_latest_receipt_date fdLatestReceiptDate,fd_payment_term fdPaymentTerm,
+        fd_base_date fdBaseDate,fd_latest_payment_date fdLatestPaymentDate,fd_currency fdCurrency,
+        fd_tax_amount fdTaxAmount,fd_no_tax_amount fdNoTaxAmount,fd_in_tax_amount fdInTaxAmount,
+        fd_deduct_amount fdDeductAmount,fd_pay_amount fdPayAmount,fd_financial_audit fdFinancialAudit,
+        fd_hkpay_mian_id fdHkpayMianId,fd_remain_amount fdRemainAmount,fd_detail_bcsqje fdDetailBcsqje
+        from km_costmanage_hkpay_gys_detail where fd_hkpay_mian_id = #{fdId}
+    </select>
+</mapper>
